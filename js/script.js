@@ -126,41 +126,45 @@ documentReady(function() {
     // Hide default cursor
     document.body.style.cursor = 'none';
     
-    // Enhanced cursor interaction for works page
-    if (window.location.pathname.includes('works.html') || document.body.classList.contains('works-page')) {
-        // Add hover effects for video containers and marquee items
-        const videoContainers = document.querySelectorAll('.video-container-six, .marq-in_div');
-        const marqueeElements = document.querySelectorAll('.marq');
-        
-        videoContainers.forEach(container => {
-            container.addEventListener('mouseenter', function() {
-                if (cursor) {
-                    cursor.style.transform = `translate(${mouseX - 30}px, ${mouseY - 30}px) scale(1.2)`;
-                    cursor.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0.3) 30%, rgba(255, 0, 0, 0.15) 60%, transparent 80%)';
-                }
+            // Enhanced cursor interaction for works page
+        if (window.location.pathname.includes('works.html') || document.body.classList.contains('works-page')) {
+            console.log('Works page detected, initializing advanced features...');
+            
+            // Add hover effects for video containers and marquee items
+            const videoContainers = document.querySelectorAll('.video-container-six, .marq-in_div');
+            const marqueeElements = document.querySelectorAll('.marq');
+            
+            videoContainers.forEach(container => {
+                container.addEventListener('mouseenter', function() {
+                    if (cursor) {
+                        cursor.style.transform = `translate(${mouseX - 30}px, ${mouseY - 30}px) scale(1.2)`;
+                        cursor.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0.3) 30%, rgba(255, 0, 0, 0.15) 60%, transparent 80%)';
+                    }
+                    
+                    // Pause marquee on hover
+                    marqueeElements.forEach(marquee => {
+                        marquee.style.animationPlayState = 'paused';
+                    });
+                });
                 
-                // Pause marquee on hover
-                marqueeElements.forEach(marquee => {
-                    marquee.style.animationPlayState = 'paused';
+                container.addEventListener('mouseleave', function() {
+                    if (cursor) {
+                        cursor.style.transform = `translate(${mouseX - 30}px, ${mouseY - 30}px) scale(1)`;
+                        cursor.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 30%, rgba(255, 0, 0, 0.1) 60%, transparent 80%)';
+                    }
+                    
+                    // Resume marquee when not hovering
+                    marqueeElements.forEach(marquee => {
+                        marquee.style.animationPlayState = 'running';
+                    });
                 });
             });
             
-            container.addEventListener('mouseleave', function() {
-                if (cursor) {
-                    cursor.style.transform = `translate(${mouseX - 30}px, ${mouseY - 30}px) scale(1)`;
-                    cursor.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 30%, rgba(255, 0, 0, 0.1) 60%, transparent 80%)';
-                }
-                
-                // Resume marquee when not hovering
-                marqueeElements.forEach(marquee => {
-                    marquee.style.animationPlayState = 'running';
-                });
-            });
-        });
-        
-        // Enhanced marquee gallery with auto-scroll, loop, and manual control
-        initAdvancedMarquee();
-    }
+            // Enhanced marquee gallery with auto-scroll, loop, and manual control
+            initAdvancedMarquee();
+        } else {
+            console.log('Not on works page, current path:', window.location.pathname);
+        }
 });
 
 /* ADVANCED MARQUEE GALLERY SYSTEM
@@ -169,7 +173,9 @@ documentReady(function() {
 function initAdvancedMarquee() {
     const marqueeContainers = document.querySelectorAll('.berflow._2');
     
+    console.log('Initializing Advanced Marquee System...');
     console.log('Found marquee containers:', marqueeContainers.length);
+    console.log('Document ready state:', document.readyState);
     
     marqueeContainers.forEach((container, index) => {
         console.log('Initializing marquee', index + 1);
@@ -538,26 +544,55 @@ documentReady(function() {
     }
 });
 
-// Video management for better performance
+// Video management for better performance and mobile autoplay
 documentReady(function() {
     const iframes = document.querySelectorAll('iframe[src*="youtube"]');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Optimize YouTube embeds
-    iframes.forEach(function(iframe) {
-        iframe.setAttribute('loading', 'lazy');
+    console.log('Found YouTube iframes:', iframes.length, 'Mobile device:', isMobile);
+    
+    // Enhanced YouTube embeds with mobile autoplay support
+    iframes.forEach(function(iframe, index) {
+        console.log(`Processing iframe ${index + 1}:`, iframe.src);
         
-        // Pause video when not in viewport (Intersection Observer)
+        // For mobile devices, try to force autoplay when video comes into view
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
-                    if (!entry.isIntersecting) {
-                        // Video is out of view - could pause here if needed
-                        console.log('Video out of viewport');
+                    if (entry.isIntersecting) {
+                        console.log(`Video ${index + 1} in viewport`);
+                        
+                        // For mobile, try to trigger autoplay when video becomes visible
+                        if (isMobile) {
+                            // Reload iframe with autoplay parameters when it comes into view
+                            const currentSrc = iframe.src;
+                            if (!currentSrc.includes('&forceplay=1')) {
+                                iframe.src = currentSrc + '&forceplay=1';
+                                console.log(`Reloaded video ${index + 1} for mobile autoplay`);
+                            }
+                        }
+                    } else {
+                        console.log(`Video ${index + 1} out of viewport`);
                     }
                 });
+            }, {
+                threshold: 0.5 // Trigger when 50% of video is visible
             });
             
             observer.observe(iframe);
+        }
+        
+        // Add touch event to start video on mobile
+        if (isMobile) {
+            const container = iframe.closest('.video-container-six');
+            if (container) {
+                container.addEventListener('touchstart', function() {
+                    console.log(`Touch detected on video ${index + 1}, attempting autoplay`);
+                    // Try to reload with fresh autoplay
+                    const currentSrc = iframe.src;
+                    iframe.src = currentSrc.replace('&forceplay=1', '') + '&forceplay=1&t=' + Date.now();
+                }, { once: true });
+            }
         }
     });
 });
@@ -576,6 +611,17 @@ documentReady(function() {
             element.classList.add('mobile-optimized');
         });
     }
+    
+    // Universal marquee initialization (fallback)
+    setTimeout(() => {
+        const marqueeContainers = document.querySelectorAll('.berflow._2');
+        if (marqueeContainers.length > 0) {
+            console.log('Fallback: Initializing marquee system for', marqueeContainers.length, 'containers');
+            initAdvancedMarquee();
+        } else {
+            console.log('No marquee containers found in fallback check');
+        }
+    }, 500);
 });
 
 // Error handling for missing dependencies
