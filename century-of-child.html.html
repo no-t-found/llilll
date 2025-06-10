@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>SiX - Drawing for RE-Connectivity</title>
+        <title>Politrack</title>
         <meta content="Carolina Santos is a Communication Design student at Faculty of Fine Arts, Porto, Portugal. Specializing in visual identity, app design, and interaction design. Also known as llilll.llll.llll.lll.lll." name="description"/>
         <meta content="Carolina Santos - Communication Design Portfolio" property="og:title"/>
         <meta content="Carolina Santos is a Communication Design student at Faculty of Fine Arts, Porto, Portugal. Specializing in visual identity, app design, and interaction design. Also known as llilll.llll.llll.lll.lll." property="og:description"/>
@@ -32,15 +32,15 @@
     </head>
     
     <body>
-        <!-- Back button - matching works.html style -->
-        <div class="back-button" onclick="goBack()">
+        <!-- Back button - using direct HTML link for reliability -->
+        <a href="works.html" class="back-button">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-        </div>
+        </a>
         
         <section class="section h-auto">
-            <div class="text-block opj _3 pad-40 pad-bot-20">Inclusive web experience designed for a research project exploring digital drawing as expression for locked-in syndrome patients</div>
+            <div class="text-block opj _3 pad-40 pad-bot-20">A platform for tracking political data</div>
                             <div class="div-block-9">
                                 <div class="scroll-text-line">
                     <p class="p-124-124">Digital Interfaces &</p>
@@ -63,15 +63,10 @@
             
             <!-- Hero Image - Full Width -->
             <div class="hero-section">
-                <div class="video-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/h-lasz-Btg4?autoplay=1&loop=1&playlist=h-lasz-Btg4&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1"
-                        frameborder="0" 
-                        allow="autoplay; encrypted-media; loop"
-                        allowfullscreen
-                        class="full-width-video">
-                    </iframe>
-                </div>
+                <img src="assets/portfolio-images/PoliTrack/´PoliTrack-capa00.jpg" 
+                     alt="PoliTrack App Design" 
+                     class="hero-image clickable-image" 
+                     data-gallery-index="0">
             </div>
             
             <!-- Project Information Section -->
@@ -79,28 +74,24 @@
                 <div class="project-details">
                     <div class="detail-line">
                         <span class="detail-label">Year</span>
-                        <span class="detail-value">2024</span>
+                        <span class="detail-value">2025</span>
                     </div>
                     <div class="detail-line">
                         <span class="detail-label">Duration</span>
-                        <span class="detail-value">3 months</span>
+                        <span class="detail-value">2 months</span>
                     </div>
                     <div class="detail-line">
                         <span class="detail-label">Design Team</span>
-                        <span class="detail-value">Carolina Santos, Inês Cruz, Iria Paulina, Miriam Jamal</span>
+                        <span class="detail-value">Carolina Santos</span>
                     </div>
                     <div class="detail-line">
-                        <span class="detail-label">Consultants</span>
-                        <span class="detail-value">Pedro Amado, Eliana Santiago</span>
-                    </div>
-                    <div class="detail-line">
-                        <span class="detail-label">Photography</span>
-                        <span class="detail-value">Given by the project</span>
+                        <span class="detail-label">Programming Team</span>
+                        <span class="detail-value">João Lourenço, Tiago Cruz, Tomás Xavier, Isabel Moutinho</span>
                     </div>
                     <div class="detail-line">
                         <span class="detail-label">Live Website</span>
                         <span class="detail-value">
-                            <a href="https://six.fba.up.pt" target="_blank" class="external-link">
+                            <a href="https://politrackapp.com" target="_blank" class="external-link">
                                 Open
                                 <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -113,11 +104,8 @@
                     <div class="project-tags">
                         <div class="tags-container">
                             <span class="tag">visual identity</span>
-                            <span class="tag">web design</span>
+                            <span class="tag">app design</span>
                             <span class="tag">interaction design</span>
-                            <span class="tag">inclusive design</span>
-                            <span class="tag">human centered design</span>
-                            <span class="tag">user interface</span>
                             <span class="tag">figma</span>
                             <span class="tag">ui/ux</span>
                         </div>
@@ -125,20 +113,20 @@
                 </div>
                 
                 <div class="project-content">
-                    <h1 class="project-title">SIX. Drawing for Social RE-Connectivity</h1>
-                    <p class="project-description">During the Web Design course at the Faculty of Fine Arts, University of Porto, I developed a website for the research project SIX. Drawing for Social RE-Connectivity.
+                    <h1 class="project-title">PoliTrack - A platform for tracking political data</h1>
+                    <p class="project-description">
+                        PoliTrack is a mobile app I designed in Figma with a team of colleagues to make Portuguese parliamentary activity more transparent and accessible to everyone.
 
-                        The project explores digital drawing as a form of expression for people with locked-in syndrome, using the human body as an interface — transforming minimal physical movements into drawing commands.
-                        
-                        The site was designed to reflect the energy and spirit of the project — with warm, vibrant colors and an intuitive experience that allows users to draw freely online, engaging directly with the project's concept.
-                        
-                        I was responsible for the entire visual identity redesign, including the logo, icon, and overall branding, aiming for a modern and accessible approach that could appeal to both younger audiences (similar to Twitter/X) and older users (inspired by Facebook), while giving the platform a unique identity and interaction style. I also handled the full prototyping of the app and all interactions in Figma, and contributed to the project's communication and public presence.
-                        
-                        The website was officially selected by the faculty as the official platform for the SIX project.
+The app allows users to explore political initiatives by party, see how each one voted, access official documents, and read each party's election manifesto. Users can also "approve" or "reject" initiatives, and future features will include comments and public discussion.
+
+I redesigned the entire visual identity of the app — including the logo, icon, and branding — with a modern and accessible approach aimed at both younger audiences (inspired by platforms like X/Twitter) and older generations (similar to Facebook), while giving the platform a unique visual language and interaction style.
+
+I was fully responsible for the prototyping of the entire user experience in Figma, including all user flows and interactions. I'm also involved in communication and social media for the project.
+
+This project combines UI/UX, branding, and communication strategy to help create a more informed and democratic Portugal.
                     </p>
                 </div>
             </div>
-
 
             <!-- Image Gallery -->
             <div class="image-section">
@@ -147,12 +135,12 @@
                     <!--<img src="assets/portfolio-images/PoliTrack/´PoliTrack-capa00.jpg" 
                          alt="PoliTrack Main Interface" 
                          class="gallery-image clickable-image" 
-                         data-gallery-index="0">
+                         data-gallery-index="0">-->
                     
                     <img src="assets/portfolio-images/PoliTrack/logo-image01.png" 
                          alt="PoliTrack Logo Design" 
                          class="gallery-image clickable-image" 
-                         data-gallery-index="1">-->
+                         data-gallery-index="1">
                     
                     <!-- You can add more images here when available -->
                 </div>

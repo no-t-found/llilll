@@ -4367,3 +4367,175 @@ img[src$=".gif"] {
 }
 
 /* End of Works Page Styles */
+
+/* ==========================================================================
+   MOBILE DRAG INTERACTION ENHANCEMENTS
+   ========================================================================== */
+
+/* Enhanced mobile drag states */
+.marq-in.dragging {
+    cursor: grabbing !important;
+    transition: none;
+}
+
+.marq-in {
+    transition: transform 0.3s ease-out;
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Smooth transition for momentum scrolling */
+.marq-in.momentum-scrolling {
+    transition: none;
+}
+
+/* Prevent text selection during drag */
+.marq-in_div {
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.marq-in_div img {
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+/* Enhanced scroll-to-top button visibility */
+#scroll-to-top {
+    position: fixed !important;
+    bottom: 2rem !important;
+    right: 2rem !important;
+    background: rgba(255, 0, 0, 0.9) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 99999 !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+    opacity: 0;
+    visibility: hidden;
+}
+
+#scroll-to-top:hover {
+    background: rgba(255, 0, 0, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 0, 0, 0.4);
+}
+
+#scroll-to-top svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+#scroll-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+/* Mobile optimizations for drag interaction */
+@media screen and (max-width: 768px) {
+    /* Improved touch targets for mobile */
+    .marq-in_div {
+        touch-action: pan-y;
+        -webkit-touch-callout: none;
+    }
+    
+    /* Enhanced scroll-to-top for mobile */
+    #scroll-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    
+    #scroll-to-top svg {
+        width: 1.2rem;
+        height: 1.2rem;
+    }
+    
+    /* Better mobile marquee interaction */
+    .berflow._2 {
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .marq {
+        overflow: visible;
+    }
+    
+    .marq-in {
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #scroll-to-top {
+        bottom: 0.8rem;
+        right: 0.8rem;
+        width: 2.2rem;
+        height: 2.2rem;
+    }
+    
+    #scroll-to-top svg {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+
+/* Additional improvements for mobile drag */
+@media (hover: none) and (pointer: coarse) {
+    /* Mobile/touch devices */
+    .marq-in_div {
+        cursor: grab;
+    }
+    
+    .marq-in_div:active {
+        cursor: grabbing;
+    }
+    
+    /* Prevent default touch behaviors */
+    .marq-in {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+/* Performance optimizations */
+.marq-in,
+.marq-in_div {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .marq-in {
+        transition: none;
+    }
+    
+    #scroll-to-top {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+}

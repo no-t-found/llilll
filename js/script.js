@@ -11,6 +11,8 @@
    5. Window and Document Touch Detection
    6. Index Page Specific Scripts
    7. General Page Scripts
+   8. Scroll To Top Functionality
+   9. Enhanced Mobile Drag Interaction
 
    ================================================================ */
 
@@ -225,15 +227,15 @@ function initAdvancedMarquee() {
         }
         
         // Enhanced manual scroll handlers with better touch support
+        let isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         let startX = 0;
         let startY = 0;
         let isDragging = false;
         let isHorizontalDrag = false;
         let lastScrollPosition = currentPosition;
-        let dragThreshold = 8; // reduced threshold for better mobile responsiveness
+        let dragThreshold = isMobileDevice ? 5 : 8; // Even lower threshold for mobile
         let lastMoveTime = 0;
         let velocity = 0;
-        let isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
         function handleStart(e) {
             const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
@@ -321,29 +323,28 @@ function initAdvancedMarquee() {
                 marqueeIn.style.cursor = 'grab';
             }
             
-            // Only snap if we had a horizontal drag
+            // Only process if we had a horizontal drag
             if (wasHorizontalDrag) {
-                let targetPosition;
-                
                 // Add momentum for mobile devices
-                if (isMobileDevice && Math.abs(velocity) > 0.3) {
-                    // Apply momentum based on velocity
-                    const momentumDistance = velocity * 300; // Adjust multiplier for desired momentum
+                if (isMobileDevice && Math.abs(velocity) > 0.2) {
+                    // Apply momentum based on velocity (improved for mobile)
+                    const momentumDistance = velocity * 250; // Slightly reduced for more control
                     currentPosition += momentumDistance;
                     console.log('Marquee', index + 1, 'momentum applied:', momentumDistance);
                 }
                 
-                // Snap to nearest item
-                const itemIndex = Math.round(-currentPosition / itemWidth);
-                targetPosition = -itemIndex * itemWidth + initialOffset;
+                // Don't snap to nearest item - keep current position
+                // Just ensure we're within bounds for seamless looping
+                if (currentPosition <= -totalWidth) {
+                    currentPosition = initialOffset;
+                } else if (currentPosition >= initialOffset + itemWidth) {
+                    currentPosition = -totalWidth + initialOffset;
+                }
                 
-                // Smooth transition to snap position
-                const transitionDuration = isMobileDevice ? '0.4s' : '0.3s';
-                marqueeIn.style.transition = `transform ${transitionDuration} ease-out`;
-                currentPosition = targetPosition;
+                // Apply the final position without snapping
                 marqueeIn.style.transform = `translateX(${currentPosition}px)`;
                 
-                console.log('Marquee', index + 1, 'snapped to item:', itemIndex);
+                console.log('Marquee', index + 1, 'position maintained at:', currentPosition);
             }
             
             // Resume auto-scroll after delay (longer on mobile)
@@ -352,7 +353,7 @@ function initAdvancedMarquee() {
                 if (!isHovering && !isDragging) {
                     isUserScrolling = false;
                     marqueeIn.style.transition = '';
-                    console.log('Marquee', index + 1, 'auto-scroll resumed');
+                    console.log('Marquee', index + 1, 'auto-scroll resumed from position:', currentPosition);
                 }
             }, resumeDelay);
         }
@@ -616,4 +617,70 @@ documentReady(function() {
     }
 });
 
-/* End of script.js */ 
+/* End of script.js */
+
+/* 8. SCROLL TO TOP FUNCTIONALITY
+   ============================== */
+
+// Scroll to top function
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Make scrollToTop globally available
+window.scrollToTop = scrollToTop;
+
+// Show/hide scroll to top button based on scroll position
+documentReady(function() {
+    function initScrollButton() {
+        const scrollButton = document.getElementById('scroll-to-top');
+        if (scrollButton) {
+            console.log('Scroll button found and initializing...');
+            
+            // Initially hide the button
+            scrollButton.style.opacity = '0';
+            scrollButton.style.visibility = 'hidden';
+            scrollButton.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+            
+            // Show/hide button based on scroll position
+            function handleScroll() {
+                if (window.pageYOffset > 300) {
+                    scrollButton.style.opacity = '1';
+                    scrollButton.style.visibility = 'visible';
+                } else {
+                    scrollButton.style.opacity = '0';
+                    scrollButton.style.visibility = 'hidden';
+                }
+            }
+            
+            window.addEventListener('scroll', handleScroll);
+            
+            // Add click event listener as backup
+            scrollButton.addEventListener('click', scrollToTop);
+            
+            // Test initial visibility
+            handleScroll();
+            
+            console.log('Scroll button initialized successfully');
+        } else {
+            console.error('Scroll button not found!');
+        }
+    }
+    
+    // Try immediately
+    initScrollButton();
+    
+    // Also try after a short delay in case of timing issues
+    setTimeout(initScrollButton, 100);
+});
+
+/* 9. ENHANCED MOBILE DRAG INTERACTION - REMOVED
+   ============================================== */
+   
+// This section was removed to prevent conflicts with the existing advanced marquee system
+// The existing marquee system in initAdvancedMarquee() already handles user interactions properly
+
+/* End of enhanced script.js */ 
