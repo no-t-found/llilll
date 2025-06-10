@@ -1,0 +1,314 @@
+/* ================================================================
+   CROSS-BROWSER COMPATIBILITY ENHANCEMENTS
+   ================================================================
+   
+   This file ensures fonts, cursor, and features work across:
+   - Chrome, Firefox, Safari, Edge
+   - Internet Explorer 11+
+   - Mobile browsers (iOS Safari, Chrome Mobile)
+   - Legacy browser support
+   ================================================================ */
+
+/* 1. FONT LOADING OPTIMIZATION
+   ============================= */
+
+/* Force font preloading for better performance */
+@supports (font-display: swap) {
+    /* Modern browsers with font-display support */
+    * {
+        font-display: swap;
+    }
+}
+
+/* Font fallback stack definitions */
+:root {
+    --font-primary: 'Neue Montreal', 'Neue Montreal 500', 'Neue Montreal Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    --font-editorial: 'Ppeditorialold', 'PP Editorial Old', Georgia, 'Times New Roman', Times, serif;
+    --font-machina: 'Neue Machina', 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Enhanced font declarations with comprehensive fallbacks */
+body {
+    font-family: var(--font-primary) !important;
+}
+
+/* Override all font declarations with proper fallbacks */
+.body,
+body.body {
+    font-family: var(--font-primary) !important;
+}
+
+/* Editorial font fallbacks */
+[class*="Ppeditorialold"],
+[style*="Ppeditorialold"],
+.text-block.opj._2,
+.text-block.opj._3,
+.paragraph-2 {
+    font-family: var(--font-editorial) !important;
+}
+
+/* Machina font fallbacks */
+[class*="Neue Machina"],
+[style*="Neue Machina"],
+.project-title,
+.project-description,
+.project-details {
+    font-family: var(--font-machina) !important;
+}
+
+/* 2. CROSS-BROWSER CURSOR COMPATIBILITY
+   ===================================== */
+
+/* Mobile cursor reset only - let JavaScript handle desktop cursor hiding */
+@media (hover: none) and (pointer: coarse) {
+    *, *::before, *::after {
+        cursor: auto !important;
+    }
+}
+
+/* 3. TRANSFORM AND ANIMATION PREFIXES
+   =================================== */
+
+/* Ensure transforms work across browsers */
+.custom-cursor-universal,
+.marq,
+.hero-image,
+.contact-glass-container {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
+}
+
+/* Animation prefixes */
+@-webkit-keyframes marquee {
+    0% { -webkit-transform: translate3d(var(--marquee-offset, 0), 0, 0); }
+    100% { -webkit-transform: translate3d(-100%, 0, 0); }
+}
+
+@-moz-keyframes marquee {
+    0% { -moz-transform: translate3d(var(--marquee-offset, 0), 0, 0); }
+    100% { -moz-transform: translate3d(-100%, 0, 0); }
+}
+
+@-ms-keyframes marquee {
+    0% { -ms-transform: translate3d(var(--marquee-offset, 0), 0, 0); }
+    100% { -ms-transform: translate3d(-100%, 0, 0); }
+}
+
+@keyframes marquee {
+    0% { transform: translate3d(var(--marquee-offset, 0), 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* 4. BROWSER-SPECIFIC FIXES
+   ========================= */
+
+/* Safari-specific fixes */
+@supports (-webkit-appearance: none) {
+    .custom-cursor-universal {
+        -webkit-transform: translate3d(0, 0, 0);
+        will-change: transform;
+    }
+    
+    .marq {
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+/* Firefox-specific fixes */
+@-moz-document url-prefix() {
+    .custom-cursor-universal {
+        -moz-transform: translate3d(0, 0, 0);
+    }
+    
+    /* Fix Firefox scrollbar in marquee */
+    .marq-in {
+        scrollbar-width: none;
+    }
+}
+
+/* Internet Explorer fixes */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .custom-cursor-universal {
+        -ms-transform: translateZ(0);
+    }
+    
+    /* IE specific font loading */
+    body {
+        font-family: 'Arial', sans-serif;
+    }
+}
+
+/* Edge Legacy fixes */
+@supports (-ms-accelerator: true) {
+    .marq {
+        -ms-transform: translateZ(0);
+    }
+}
+
+/* 5. PERFORMANCE OPTIMIZATIONS
+   ============================ */
+
+/* GPU acceleration for better performance */
+.marq,
+.marq-in,
+.marq-in_div,
+.custom-cursor-universal,
+.hero-image,
+.contact-glass-container {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    
+    -webkit-will-change: transform;
+    will-change: transform;
+}
+
+/* Smooth scrolling for all browsers */
+html {
+    -webkit-scroll-behavior: smooth;
+    -moz-scroll-behavior: smooth;
+    -ms-scroll-behavior: smooth;
+    scroll-behavior: smooth;
+}
+
+/* 6. ACCESSIBILITY ENHANCEMENTS
+   ============================= */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    body {
+        font-weight: 600;
+    }
+    
+    .text-block,
+    .paragraph {
+        font-weight: 700;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .marq {
+        animation: none !important;
+    }
+    
+    .custom-cursor-universal {
+        transition: none !important;
+    }
+}
+
+/* 7. LEGACY BROWSER SUPPORT
+   ========================= */
+
+/* Flexbox fallbacks */
+.project-info-section {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+
+/* Grid fallbacks */
+@supports not (display: grid) {
+    .project-info-section {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+
+/* 8. FONT SMOOTHING
+   ================= */
+
+/* Enhanced font rendering */
+body,
+.text-block,
+.paragraph,
+.project-title,
+.project-description {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga" 1, "kern" 1;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/* 9. VENDOR PREFIX ADDITIONS
+   ========================== */
+
+/* Border radius */
+.contact-glass-container,
+.custom-cursor-universal,
+.hero-image {
+    -webkit-border-radius: inherit;
+    -moz-border-radius: inherit;
+    border-radius: inherit;
+}
+
+/* Box shadow */
+.contact-glass-container {
+    -webkit-box-shadow: inherit;
+    -moz-box-shadow: inherit;
+    box-shadow: inherit;
+}
+
+/* Backdrop filter fallback */
+.contact-glass-container {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+    .contact-glass-container {
+        background: rgba(255, 255, 255, 0.9);
+    }
+}
+
+/* 10. PRINT STYLES
+    =============== */
+
+@media print {
+    .custom-cursor-universal {
+        display: none !important;
+    }
+    
+    body {
+        font-family: Times, 'Times New Roman', serif !important;
+        color: black !important;
+        background: white !important;
+    }
+} 

@@ -1,0 +1,924 @@
+/* ================================================================
+   CONTACTS PAGE STYLES - ORGANIZED & CLEANED
+   ================================================================
+
+   FILE STRUCTURE:
+   ---------------
+   1. Font Definitions
+   2. Base Styles & Background  
+   3. Navigation Styles
+   4. Mobile Responsive Styles (768px and below)
+   5. Cursor & Interaction Styles
+   6. Animation Styles
+   7. Main Content Styles
+   8. Layout & Positioning Styles
+
+   ================================================================ */
+
+/* 1. FONT DEFINITIONS
+   ================== */
+
+@font-face {
+    font-family: "Neue Montreal Regular";
+    src: url("https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.eot");
+    src: url("https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/7980cc1889b6b0b264dc47cca659f7c2.svg#Neue Montreal Regular") format("svg");
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "PP Editorial Old";
+    src: url("https://db.onlinewebfonts.com/t/155c3fcab90ff316f2afaf56be1b86b4.eot");
+    src: url("https://db.onlinewebfonts.com/t/155c3fcab90ff316f2afaf56be1b86b4.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/155c3fcab90ff316f2afaf56be1b86b4.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/155c3fcab90ff316f2afaf56be1b86b4.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/155c3fcab90ff316f2afaf56be1b86b4.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/155c3fcab90ff316f2afaf56be1b86b4.svg#PP Editorial Old") format("svg");
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 2. BASE STYLES & BACKGROUND
+   =========================== */
+
+/* White background for contacts page */
+body {
+    background: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+    position: relative !important;
+}
+
+html {
+    font-size: calc(100vw / 1440);
+    -webkit-font-smoothing: antialiased;
+}
+
+@media screen and (max-width: 992px) {
+    html {
+        font-size: calc(100vw / 992);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: calc(100vw / 375);
+    }
+}
+
+/* ================================================================
+   GLASS MORPHISM CONTAINER WITH RED INTERACTIVE LIGHTING
+   ======================================================= */
+
+/* Animated background gradient for subtle movement */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(-45deg, #f8f8f8, #ffffff, #f5f5f5, #ffffff);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    z-index: -2;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Interactive red light that follows cursor */
+body::after {
+    content: '';
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, rgba(255, 0, 0, 0.08) 30%, rgba(255, 0, 0, 0.03) 60%, transparent 80%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+    top: var(--cursor-y, 50%);
+    left: var(--cursor-x, 50%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+body:hover::after {
+    opacity: 1;
+}
+
+/* Full-width scalable contact container */
+.contact-glass-container {
+    position: relative;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(255, 0, 0, 0.1);
+    border-radius: 24px;
+    padding: 60px 5%;
+    width: 90%;
+    max-width: 1200px;
+    margin: 15vh auto 0;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(255, 0, 0, 0.1);
+}
+
+/* Subtle inner glow */
+.contact-glass-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 0, 0, 0.05) 100%);
+    border-radius: 24px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Hover effect with enhanced glow */
+.contact-glass-container:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 30px 60px rgba(255, 0, 0, 0.15),
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 10px 20px rgba(255, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 0, 0, 0.2);
+}
+
+/* Enhanced border glow on hover */
+.contact-glass-container:hover::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 0, 0, 0.08) 50%, rgba(255, 0, 0, 0.1) 100%);
+}
+
+/* Content inside full-width container - Scalable layout */
+.contact-glass-container .div-block-10 {
+    position: relative;
+    background: transparent !important;
+    text-align: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: block !important;
+}
+
+.contact-glass-container .div-block-10 .paragraph {
+    margin: 20px 0 !important;
+    text-align: center !important;
+    color: #ff0000 !important;
+    font-size: clamp(32px, 5vw, 60px) !important;
+    line-height: 1.3 !important;
+    font-family: 'PP Editorial Old', 'Ppeditorialold', Georgia, Times, 'Times New Roman', serif !important;
+    font-weight: 400 !important;
+    width: 100% !important;
+}
+
+.contact-glass-container .div-block-10 .link {
+    color: #ff0000 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    border-bottom: 2px solid transparent !important;
+}
+
+.contact-glass-container .div-block-10 .link:hover {
+    color: #cc0000 !important;
+    border-bottom-color: #cc0000 !important;
+}
+
+/* 3. NAVIGATION STYLES - RED TEXT FOR CONTACTS PAGE
+   ================================================ */
+
+/* Navigation styles have been moved to nav.css for better organization */
+
+/* Navigation styles moved to nav.css for consistency across all pages */
+
+/* Mobile navigation styles also moved to nav.css */
+
+/* SVG path colors - RED for white background */
+#path {
+    stroke: #ff0000 !important;
+}
+
+#path2 {
+    stroke: #ff0000 !important;
+}
+
+.cont-body .cccuu path {
+    stroke: #ff0000 !important;
+}
+
+.cccuu {
+    z-index: 999999999;
+    position: fixed;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+}
+
+/* 4. MOBILE RESPONSIVE STYLES
+   =========================== */
+
+/* Mobile responsive navigation - Improved with glass morphism */
+@media screen and (max-width: 768px) {
+    /* Force white background on main containers */
+    html,
+    body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+    }
+    
+    .app,
+    .wrapper,
+    .barba-container,
+    .cont-page,
+    .cont-container {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+    
+    /* Mobile full-width adjustments */
+    .contact-glass-container {
+        padding: 40px 4%;
+        margin: 10vh auto 0;
+        width: 92%;
+        max-width: 100%;
+        border-radius: 0;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph {
+        margin: 15px 0 !important;
+        font-size: clamp(28px, 6vw, 45px) !important;
+        line-height: 1.2 !important;
+    }
+    
+    /* Ensure body background stays white */
+    body {
+        background: #ffffff !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        min-height: 100vh !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .header {
+        width: 100% !important;
+        padding: 0 !important;
+        background: transparent !important;
+    }
+    
+    .navbar {
+        width: 100% !important;
+        padding: 15px 15px !important;
+        justify-content: center !important;
+        background: transparent !important;
+    }
+    
+    .nav-menu {
+        width: calc(100vw - 30px) !important;
+        justify-content: space-between !important;
+        gap: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Navigation styles moved to nav.css */
+    
+    /* Hide contact header completely on mobile */
+    .top-head-block {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* FORCE ALL PARENT CONTAINERS TO BE VISIBLE */
+    .app {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        flex-grow: 1 !important;
+        padding: 60px 20px !important;
+        order: 2 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .wrapper {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+    }
+    
+    .barba-container {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+    }
+    
+    .cont-page {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+    }
+    
+    .cont-container {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+    }
+    
+    /* CONTACT CONTAINER WITH FULL PATH */
+    .app .wrapper .barba-container.cont-page .cont-container .div-block-10,
+    .div-block-10 {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        max-width: 90vw !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+        background: transparent !important;
+        position: relative !important;
+        z-index: 100 !important;
+    }
+    
+    /* CONTACT TEXT WITH FULL PATH - Enhanced for glass container with red text */
+    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 .paragraph,
+    .div-block-10 p,
+    .div-block-10 .paragraph {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #ff0000 !important;
+        font-size: 36px !important;
+        line-height: 1.2 !important;
+        margin: 8px 0 !important;
+        text-align: center !important;
+        font-family: 'PP Editorial Old', serif !important;
+        font-weight: 400 !important;
+        background: transparent !important;
+        text-shadow: 0 1px 2px rgba(255, 0, 0, 0.1) !important;
+    }
+    
+    /* CONTACT LINKS WITH FULL PATH - Enhanced with red text */
+    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 .link,
+    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 a,
+    .div-block-10 a,
+    .div-block-10 .link {
+        display: inline !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #ff0000 !important;
+        font-size: 36px !important;
+        line-height: 1.2 !important;
+        text-decoration: none !important;
+        font-family: 'PP Editorial Old', serif !important;
+        font-weight: 400 !important;
+        background: transparent !important;
+        border-bottom: 2px solid transparent !important;
+        transition: all 0.3s ease !important;
+        text-shadow: 0 1px 2px rgba(255, 0, 0, 0.1) !important;
+    }
+    
+    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 .link:hover,
+    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 a:hover,
+    .div-block-10 a:hover,
+    .div-block-10 .link:hover {
+        color: #cc0000 !important;
+        border-bottom-color: #cc0000 !important;
+        text-shadow: 0 2px 12px rgba(255, 0, 0, 0.4) !important;
+        transform: translateY(-2px) !important;
+    }
+    
+    /* LOCATION TEXT WITH FULL PATH */
+    .app .wrapper .barba-container.cont-page .cont-container .location-footer,
+    .location-footer {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        text-align: center !important;
+        margin: 40px 0 !important;
+        width: 100% !important;
+    }
+    
+    .app .wrapper .barba-container.cont-page .cont-container .location-text,
+    .location-text {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #ff0000 !important;
+        font-family: 'Neue Montreal Regular', Arial, sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        text-transform: uppercase !important;
+        margin: 0 !important;
+        background: transparent !important;
+        text-shadow: 0 1px 2px rgba(255, 0, 0, 0.1) !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        padding: 12px 10px !important;
+    }
+    
+    .nav-menu {
+        width: calc(100vw - 20px) !important;
+    }
+    
+    /* Navigation styles moved to nav.css */
+    
+    /* Mobile compact adjustments */
+    .contact-glass-container {
+        padding: 30px 3%;
+        margin: 8vh auto 0;
+        width: 94%;
+        border-radius: 0;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph {
+        margin: 12px 0 !important;
+        font-size: clamp(24px, 7vw, 40px) !important;
+    }
+    
+    /* Smaller contact text */
+    .div-block-10 .paragraph,
+    .div-block-10 .link,
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 32px !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .navbar {
+        padding: 10px 8px !important;
+    }
+    
+    .nav-menu {
+        width: calc(100vw - 16px) !important;
+    }
+    
+    /* Navigation styles moved to nav.css */
+    
+    /* Extra small mobile adjustments */
+    .contact-glass-container {
+        padding: 25px 2%;
+        margin: 6vh auto 0;
+        width: 96%;
+        border-radius: 0;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph {
+        margin: 10px 0 !important;
+        font-size: clamp(22px, 8vw, 35px) !important;
+    }
+    
+    /* Extra small contact text */
+    .div-block-10 .paragraph,
+    .div-block-10 .link,
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 28px !important;
+    }
+}
+
+/* 5. CURSOR & INTERACTION STYLES
+   =============================== */
+
+/* Custom cursor now handled by JavaScript - CSS disabled to prevent conflicts */
+/* * {
+    cursor: none !important;
+} */
+
+/* Disable SVG cursor interactions */
+.cccuu {
+    display: none !important;
+}
+
+#svg, #path, #path2 {
+    display: none !important;
+}
+
+/* 6. ANIMATION STYLES
+   =================== */
+
+/* Mobile-only CSS animations */
+@media screen and (max-width: 991px) {
+    @keyframes slideInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* 7. MAIN CONTENT STYLES
+   ======================= */
+
+/* Red text on white background - centered */
+.cont-body .paragraph,
+.cont-body .link {
+    color: #ff0000 !important;
+    text-align: center !important;
+}
+
+.cont-body .link:after {
+    background: #ff0000 !important;
+}
+
+/* Center the main contact container - Remove conflicting styles */
+.div-block-10 {
+    text-align: center !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+}
+
+/* Center location text */
+.location-footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 120px;
+    margin-bottom: 80px;
+}
+
+.location-text {
+    font-family: 'Neue Montreal Regular', sans-serif !important;
+    font-size: 16px !important;
+    color: #ff0000 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+    font-weight: 400 !important;
+}
+
+.link:after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 4px;
+    left: 0;
+    background: #ff0000;
+    transition: transform 300ms ease;
+    transform-origin: right;
+    transform: scaleX(0);
+}
+
+.link:hover:after {
+    transform-origin: left;
+    transform: scaleX(1);
+}
+
+/* 8. LAYOUT & POSITIONING STYLES
+   =============================== */
+
+.app {
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-grow: 1 !important;
+    min-height: calc(100vh - 80px) !important;
+    padding: 20px !important;
+}
+
+/* Force proper document flow order */
+body {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Keep corner icons (navigation/cursor SVG) */
+canvas, .cccuu {
+    pointer-events: none;
+}
+
+/* Simplified text sizing - RED TEXT on white background */
+.cont-page .div-block-10 .paragraph {
+    color: #ff0000 !important;
+    font-size: clamp(32px, 5vw, 60px) !important;
+    line-height: 1.3 !important;
+    margin: 20px 0 !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+}
+
+.cont-page .div-block-10 .link {
+    color: #ff0000 !important;
+    text-decoration: none !important;
+    font-size: clamp(32px, 5vw, 60px) !important;
+    font-weight: 400 !important;
+    line-height: 1.3 !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Simple hover effect */
+.cont-page .div-block-10 .link:hover {
+    color: #cc0000 !important;
+}
+
+@media screen and (max-width: 991px) {
+    .cont-page .div-block-10 {
+        padding: 1.5rem 0.5rem !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 64px !important;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .cont-page .div-block-10 {
+        padding: 1rem 0.5rem !important;
+    }
+
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 54px !important;
+    }
+}
+
+/* AGGRESSIVE OVERRIDE - Force layout to work */
+body.cont-body {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 100vh !important;
+}
+
+body.cont-body .header {
+    order: 1 !important;
+    flex-shrink: 0 !important;
+    margin-bottom: 80px !important;
+}
+
+body.cont-body .app {
+    order: 2 !important;
+    flex-grow: 1 !important;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media screen and (max-width: 991px) {
+    /* Navigation adjustments */
+    .header {
+        margin-bottom: 60px !important;
+    }
+    
+    /* Main container adjustments */
+    .cont-page .div-block-10 {
+        padding: 2rem 1rem !important;
+        margin: 0 auto !important;
+        max-width: 1000px !important;
+        width: 100% !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Contact links sizing */
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 58px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 16px !important;
+        text-align: center !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Contact container - improved centering */
+    .cont-page .div-block-10 {
+        padding: 2rem 0.5rem !important;
+        width: 100% !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+    
+    /* Contact text sizing - bigger and scalable with tight spacing */
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 48px !important;
+        line-height: 1.1 !important;
+        margin-bottom: 8px !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    /* Mobile-only animations */
+    .cont-page .div-block-10 .paragraph {
+        animation: slideInUp 0.8s ease-out forwards !important;
+        opacity: 0 !important;
+        transform: translateY(30px) !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:nth-child(1) {
+        animation-delay: 0.2s !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:nth-child(2) {
+        animation-delay: 0.4s !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:nth-child(3) {
+        animation-delay: 0.6s !important;
+    }
+    
+    .cont-page .div-block-10 .link {
+        transition: all 0.3s ease !important;
+    }
+    
+    .cont-page .div-block-10 .link:hover,
+    .cont-page .div-block-10 .link:active {
+        transform: scale(1.05) !important;
+        color: #cc0000 !important;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    /* Navigation */
+    .header {
+        margin-bottom: 40px !important;
+    }
+    
+    /* Main contact container - perfect centering */
+    .cont-page .div-block-10 {
+        padding: 2rem 1rem !important;
+        width: 100% !important;
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: auto !important;
+    }
+    
+    /* Contact text - mobile optimized with no vertical spacing */
+    .cont-page .div-block-10 .paragraph {
+        font-size: 40px !important;
+        line-height: 1.0 !important;
+        margin-bottom: 4px !important;
+        word-break: break-word !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        animation: slideInUp 0.8s ease-out forwards !important;
+        opacity: 0 !important;
+        transform: translateY(30px) !important;
+    }
+    
+    .cont-page .div-block-10 .link {
+        font-size: 40px !important;
+        line-height: 1.0 !important;
+        word-break: break-word !important;
+        display: inline-block !important;
+        text-align: center !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    /* Email link - special handling for long email with minimal spacing */
+    .cont-page .div-block-10 .paragraph:first-child {
+        margin-bottom: 8px !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:first-child .link {
+        font-size: 36px !important;
+        word-break: break-all !important;
+        line-height: 1.0 !important;
+    }
+    
+    /* Social links container - tight spacing */
+    .cont-page .div-block-10 .paragraph:not(:first-child) {
+        display: block !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin-bottom: 4px !important;
+    }
+    
+    /* Individual social links - tight line height */
+    .cont-page .div-block-10 .paragraph:not(:first-child) .link {
+        font-size: 38px !important;
+        margin: 0 8px !important;
+        display: inline-block !important;
+        line-height: 1.0 !important;
+    }
+    
+    /* Animation delays for staggered effect */
+    .cont-page .div-block-10 .paragraph:nth-child(1) {
+        animation-delay: 0.2s !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:nth-child(2) {
+        animation-delay: 0.4s !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:nth-child(3) {
+        animation-delay: 0.6s !important;
+    }
+    
+    /* Hover/touch effects for mobile */
+    .cont-page .div-block-10 .link:hover,
+    .cont-page .div-block-10 .link:active,
+    .cont-page .div-block-10 .link:focus {
+        transform: scale(1.08) !important;
+        color: #cc0000 !important;
+    }
+    
+    /* Mobile-only location text animation with spacing from contact */
+    .location-footer {
+        animation: fadeInUp 1s ease-out 0.8s forwards !important;
+        opacity: 0 !important;
+        transform: translateY(20px) !important;
+        margin-top: 60px !important;
+    }
+}
+
+/* Extra small mobile devices */
+@media screen and (max-width: 375px) {
+    .cont-page .div-block-10 {
+        width: 100vw !important;
+        padding: 1.5rem 0.5rem !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph,
+    .cont-page .div-block-10 .link {
+        font-size: 36px !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:first-child .link {
+        font-size: 32px !important;
+    }
+    
+    .cont-page .div-block-10 .paragraph:not(:first-child) .link {
+        font-size: 34px !important;
+    }
+    
+    .location-text {
+        font-size: 13px !important;
+        color: #ff0000 !important;
+    }
+}
+
+/* Landscape mobile orientation */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .header {
+        margin-bottom: 20px !important;
+    }
+    
+    .location-footer {
+        margin-top: 40px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    /* Reduce animations in landscape for better UX */
+    .cont-page .div-block-10 .paragraph {
+        animation-duration: 0.4s !important;
+    }
+}

@@ -1,0 +1,982 @@
+/* ================================================================
+   PROJECT SHOWCASE PAGE STYLES - CLEANED
+   ================================================================ */
+
+/* Font Definitions with Browser Fallbacks */
+@font-face {
+    font-family: "Neue Machina";
+    font-weight: 400;
+    font-style: normal;
+    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff2") format("woff2"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff") format("woff"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.otf") format("opentype"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.ttf") format("truetype");
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Neue Machina";
+    font-weight: 700;
+    font-style: normal;
+    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff2") format("woff2"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff") format("woff"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.otf") format("opentype"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.ttf") format("truetype");
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: "Neue Machina";
+    font-weight: 900;
+    font-style: normal;
+    src: url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.woff2") format("woff2"),
+         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.woff") format("woff"),
+         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.otf") format("opentype"),
+         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.ttf") format("truetype");
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Base CSS Reset */
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 38px;
+    line-height: 44px;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Viewport scaling */
+html {
+    font-size: calc(100vw / 1440);
+    -webkit-font-smoothing: antialiased;
+}
+
+@media screen and (max-width: 992px) {
+    html {
+        font-size: calc(100vw / 992);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: calc(100vw / 375);
+    }
+}
+
+/* Custom red diffused cursor - matching main site */
+* {
+    cursor: none !important;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: var(--cursor-y, 0px);
+    left: var(--cursor-x, 0px);
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0.3) 30%, rgba(255, 0, 0, 0.15) 60%, rgba(255, 0, 0, 0.05) 80%, transparent 100%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+    mix-blend-mode: multiply;
+    filter: blur(2px);
+}
+
+/* Base styling */
+body {
+    background: #ffffff;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    font-family: 'Neue Machina', 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.4;
+}
+
+.project-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+/* Hero Image - Full Width with flexible height that maintains aspect ratio */
+.hero-image {
+    width: calc(100vw - 40px);
+    height: auto;
+    max-height: 70vh;
+    margin: 20px auto;
+    display: block;
+    border-radius: 12px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-image:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* For div-based hero images with background */
+.hero-image:not(img) {
+    background: #000000;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23000000"/><circle cx="400" cy="300" r="80" fill="%23333"/><rect x="200" y="500" width="300" height="150" fill="%23222" transform="rotate(15 350 575)"/><path d="M800 200 L900 250 L850 350 L750 300 Z" fill="%23444"/></svg>');
+    background-size: cover;
+    background-position: center;
+    min-height: 50vh;
+}
+
+/* Project Info Section - better centered */
+.project-info-section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    padding: 80px 60px;
+    max-width: calc(100vw - 120px);
+    margin: 0 auto;
+}
+
+.project-details {
+    font-family: 'Neue Machina', 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #000000;
+}
+
+.project-details .detail-line {
+    margin-bottom: 12px;
+    display: flex;
+    border-bottom: 1px solid #000000;
+    padding-bottom: 8px;
+}
+
+.project-details .detail-label {
+    font-weight: 700;
+    min-width: 120px;
+    margin-right: 20px;
+}
+
+.project-details .detail-value {
+    font-weight: 400;
+}
+
+.project-title {
+    font-family: 'Neue Machina', 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    color: #000000;
+    letter-spacing: -0.02em;
+    margin-top: 0;
+}
+
+.project-content {
+    /* Container for project title and description */
+}
+
+.project-description {
+    font-family: 'Neue Machina', 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #000000;
+    text-align: justify;
+}
+
+/* Project Tags */
+.project-tags {
+    margin-top: 8px;
+    padding-top: 8px;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.tag {
+    padding: 8px 16px;
+    border: 1.5px solid #000000;
+    border-radius: 20px;
+    font-family: 'Neue Machina', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #000000;
+    background: transparent;
+    transition: all 0.3s ease;
+    text-transform: lowercase;
+}
+
+.tag:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+/* Image Gallery Sections - matching text margins exactly */
+.image-section {
+    margin: 0 auto;
+    padding: 80px 60px;
+    max-width: calc(100vw - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.full-width-image {
+    width: 100%;
+    height: 80vh;
+    background: #000000;
+    background-size: cover;
+    background-position: center;
+    margin: 20px 0;
+    display: block;
+    border-radius: 12px;
+}
+
+.two-column-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.half-width-image {
+    width: 100%;
+    height: 70vh;
+    background: #000000;
+    background-size: cover;
+    background-position: center;
+    display: block;
+    border-radius: 12px;
+}
+
+/* Image placeholder styles with dramatic black and white aesthetic */
+.img-1 {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23000000;stop-opacity:1" /><stop offset="50%" style="stop-color:%23333333;stop-opacity:1" /><stop offset="100%" style="stop-color:%23000000;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23grad1)"/><circle cx="300" cy="200" r="120" fill="%23ffffff" opacity="0.3"/><rect x="500" y="400" width="400" height="200" fill="%23222222" transform="rotate(25 700 500)"/></svg>');
+}
+
+.img-2 {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23111111"/><path d="M0 400 Q300 200 600 400 T1200 400 L1200 800 L0 800 Z" fill="%23000000"/><circle cx="800" cy="300" r="100" fill="%23444444"/><rect x="100" y="100" width="200" height="300" fill="%23222222" transform="rotate(-15 200 250)"/></svg>');
+}
+
+.img-3 {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23000000"/><polygon points="200,100 400,150 350,350 150,300" fill="%23333333"/><circle cx="800" cy="400" r="150" fill="%23111111"/><path d="M900 600 L1100 650 L1050 750 L850 700 Z" fill="%23222222"/></svg>');
+}
+
+.img-4 {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><radialGradient id="radial1" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:%23333333;stop-opacity:1" /><stop offset="100%" style="stop-color:%23000000;stop-opacity:1" /></radialGradient></defs><rect width="1200" height="800" fill="url(%23radial1)"/><rect x="300" y="200" width="600" height="400" fill="%23111111" opacity="0.8"/></svg>');
+}
+
+.img-5 {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23000000"/><path d="M0 0 L400 100 L300 400 L0 300 Z" fill="%23222222"/><path d="M600 200 L1200 300 L1100 600 L500 500 Z" fill="%23333333"/><circle cx="400" cy="600" r="80" fill="%23111111"/></svg>');
+}
+
+.img-6 {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23111111"/><rect x="200" y="200" width="800" height="400" fill="%23000000" transform="rotate(5 600 400)"/><circle cx="600" cy="400" r="200" fill="%23222222" opacity="0.7"/></svg>');
+}
+
+/* Back button - matching works.html scroll-to-top style */
+.back-button {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: 2px solid #FF0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000 !important;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    text-decoration: none;
+    font-family: 'Neue Montreal', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #FF0000;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+}
+
+.back-button:hover {
+    opacity: 1;
+    transform: translateY(-3px);
+    background: rgba(255, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.back-button svg {
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover svg {
+    transform: translateY(-2px);
+}
+
+/* External link styling for the "Open" website link */
+.external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #000000;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.external-link:hover {
+    color: #FF0000;
+}
+
+.external-link:hover .arrow-icon {
+    transform: translate(2px, -2px);
+}
+
+.arrow-icon {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+    stroke: currentColor;
+}
+
+/* Responsive design - maintaining image proportions */
+@media screen and (max-width: 991px) {
+    .project-info-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 40px;
+        max-width: calc(100vw - 80px);
+    }
+
+    .image-section {
+        padding: 60px 40px;
+        max-width: calc(100vw - 80px);
+    }
+
+    .project-title {
+        font-size: 28px;
+    }
+
+    .project-description {
+        font-size: 15px;
+    }
+
+    .two-column-images {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .full-width-image {
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    .half-width-image {
+        height: 50vh;
+        min-height: 300px;
+    }
+
+    .hero-image {
+        width: calc(100vw - 30px);
+        height: auto;
+        max-height: 50vh;
+        margin: 15px auto;
+    }
+
+    .back-button {
+        top: 20px;
+        left: 20px;
+        width: 55px;
+        height: 55px;
+    }
+    
+    .back-button svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero-image {
+        width: calc(100vw - 30px);
+        height: auto;
+        max-height: 50vh;
+        margin: 15px auto;
+    }
+    
+    .project-info-section {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px 20px;
+        max-width: calc(100vw - 40px);
+    }
+    
+    .project-title {
+        font-size: 24px !important;
+        margin-bottom: 25px !important;
+    }
+    
+    .project-description {
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+    }
+    
+    .project-details {
+        font-size: 13px !important;
+    }
+    
+    /* Stack detail lines vertically on mobile */
+    .project-details .detail-line {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .project-details .detail-label {
+        min-width: auto;
+        margin-right: 0;
+        margin-bottom: 4px;
+        font-weight: 700;
+    }
+    
+    .project-details .detail-value {
+        margin-left: 0;
+    }
+    
+    .image-section {
+        padding: 40px 20px;
+        max-width: calc(100vw - 40px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-image {
+        width: calc(100vw - 20px);
+        height: auto;
+        max-height: 40vh;
+        margin: 10px auto;
+    }
+    
+    .project-info-section {
+        padding: 30px 15px;
+        max-width: calc(100vw - 30px);
+        gap: 30px;
+    }
+    
+    .project-title {
+        font-size: 20px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .project-description {
+        font-size: 14px !important;
+    }
+    
+    .project-details {
+        font-size: 12px !important;
+    }
+    
+    /* Stack detail lines vertically on mobile */
+    .project-details .detail-line {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .project-details .detail-label {
+        min-width: auto;
+        margin-right: 0;
+        margin-bottom: 4px;
+        font-weight: 700;
+    }
+    
+    .project-details .detail-value {
+        margin-left: 0;
+    }
+    
+    .image-section {
+        padding: 30px 15px;
+        max-width: calc(100vw - 30px);
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .hero-image {
+        width: calc(100vw - 16px);
+        height: auto;
+        max-height: 35vh;
+        margin: 8px auto;
+    }
+    
+    .project-info-section {
+        padding: 25px 10px;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .project-title {
+        font-size: 18px !important;
+    }
+    
+    .image-section {
+        padding: 25px 10px;
+        max-width: calc(100vw - 20px);
+    }
+}
+
+/* ================================================================
+   POLITRACK SPECIFIC STYLES
+   ================================================================ */
+
+/* Neue Montreal Font for navigation */
+@import url('https://fonts.googleapis.com/css2?family=Neue+Montreal:wght@300;400;500;600;700&display=swap');
+
+/* Custom styling for the text block and section margins */
+.text-block.opj._3.pad-40.pad-bot-20 {
+    font-family: 'Neue Montreal', Arial, sans-serif !important;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #000000;
+    text-align: center;
+    margin: 0 auto;
+    padding: 40px 20px 20px;
+}
+
+.section.h-auto {
+    margin-top: 120px !important;
+    margin-bottom: 180px !important;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+/* Video container styling */
+.video-container {
+    width: 100%;
+    height: 80vh;
+    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.full-width-video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Mobile responsive navigation - PoliTrack specific improvements */
+@media screen and (max-width: 768px) {
+    .header {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .navbar {
+        width: 100% !important;
+        padding: 15px 15px !important;
+        justify-content: center !important;
+    }
+    
+    .nav-menu {
+        width: calc(100vw - 30px) !important;
+        justify-content: space-between !important;
+        gap: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .navlink {
+        font-size: 16px !important;
+        padding: 6px 8px !important;
+        min-height: 36px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex: 1 !important;
+        margin: 0 2px !important;
+        border-radius: 18px !important;
+        transition: all 0.3s ease !important;
+        min-width: 70px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+    }
+    
+    .navlink:hover {
+        background: rgba(0, 0, 0, 0.1) !important;
+        transform: scale(1.02) !important;
+    }
+    
+    .navlink.w--current {
+        background: #000000 !important;
+        color: red !important;
+    }
+    
+    .navlink .gs {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Fix navigation duplication on mobile */
+    .navlink .gs:first-child {
+        display: block !important;
+    }
+    
+    .navlink .gs:last-child {
+        display: none !important;
+    }
+    
+    /* Hide red sections and titles */
+    .scroll-text-line,
+    .p-124-124,
+    .scroll-trigger-keeper,
+    .section.h-auto:not(.portfolio-content) {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Show ONLY Neue Montreal text */
+    .project-title,
+    .text-neue-montreal,
+    h1[style*="Neue Montreal"],
+    h2[style*="Neue Montreal"],
+    .text-block[style*="Neue Montreal"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        color: #000000 !important;
+        font-family: 'Neue Machina', Arial, sans-serif !important;
+        font-size: clamp(24px, 6vw, 36px) !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+        margin: 20px 30px !important;
+        padding: 0 !important;
+    }
+    
+    /* Text content adjustments - consistent wider margins */
+    .project-description,
+    .portfolio-text,
+    .text-content {
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        margin: 20px 30px !important;
+        padding: 0 !important;
+        color: #000000 !important;
+        font-family: 'Neue Machina', Arial, sans-serif !important;
+        text-align: justify !important;
+    }
+    
+    /* Specific h1 project title styling for mobile */
+    h1.project-title {
+        font-family: 'Neue Machina', Arial, sans-serif !important;
+        font-size: clamp(24px, 6vw, 36px) !important;
+        line-height: 1.2 !important;
+        margin: 20px 30px !important;
+        padding: 0 !important;
+        text-align: left !important;
+        color: #000000 !important;
+    }
+    
+    /* Project description specific styling for mobile */
+    p.project-description {
+        font-family: 'Neue Machina', Arial, sans-serif !important;
+        font-size: 14px !important;
+        line-height: 1.4 !important;
+        margin: 20px 30px !important;
+        padding: 0 !important;
+        text-align: justify !important;
+        color: #000000 !important;
+    }
+    
+    /* Project info section - remove all internal padding, use margin on children */
+    .project-info-section {
+        padding: 20px 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 20px !important;
+    }
+    
+    /* Project details with exact same margins as title */
+    .project-details {
+        margin: 20px 30px !important;
+        padding: 0 !important;
+        width: calc(100% - 60px) !important;
+        box-sizing: border-box !important;
+        font-family: 'Neue Machina', sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 1.6 !important;
+    }
+    
+    .back-button {
+        position: fixed;
+        z-index: 9999;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #FF0000;
+        border-radius: 50%;
+        padding: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        top: 15px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
+        opacity: 0.9;
+    }
+    
+    .back-button svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Gallery Styles */
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    object-fit: cover;
+}
+
+.gallery-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Gallery Modal */
+.gallery-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.gallery-modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-image-container {
+    max-width: 85vw;
+    max-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gallery-modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Gallery Navigation Buttons - Matching back button style */
+.gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #FF0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.gallery-nav-btn:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    background: rgba(255, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+.gallery-prev-btn {
+    left: 30px;
+}
+
+.gallery-next-btn {
+    right: 30px;
+}
+
+/* Close Button - Matching back button style */
+.gallery-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #FF0000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.gallery-close-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(255, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+}
+
+/* Gallery Counter */
+.gallery-counter {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    color: #FF0000;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'Neue Machina', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+/* Mobile Gallery Styles */
+@media screen and (max-width: 768px) {
+    .project-gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 30px 0;
+    }
+    
+    .gallery-nav-btn {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .gallery-prev-btn {
+        left: 15px;
+    }
+    
+    .gallery-next-btn {
+        right: 15px;
+    }
+    
+    .gallery-close-btn {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .gallery-counter {
+        bottom: 15px;
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    .gallery-image-container {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .gallery-nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .gallery-nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .gallery-close-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .gallery-close-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* End of project.css */

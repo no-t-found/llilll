@@ -1,0 +1,994 @@
+/* ==========================================================================
+   NAVIGATION STYLES - Consolidated from all CSS files
+   Main navigation menu styles and behaviors for the website
+   Author: Carolina Santos
+   Last Updated: December 2025
+   ========================================================================== */
+
+/* ==========================================================================
+   1. HEADER & NAVBAR BASE STYLES
+   ========================================================================== */
+
+.header {
+    z-index: 10;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.navbar {
+    position: relative;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-menu {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 30px;
+}
+
+/* ==========================================================================
+   2. NAVLINK BASE STYLES
+   ========================================================================== */
+
+.navlink {
+    color: #fff;
+    text-transform: uppercase;
+    background-color: transparent;
+    border-radius: 100px;
+    flex-flow: column;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    margin: 0;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    min-width: auto;
+}
+
+/* Navigation link animations - PROPER SLIDE EFFECT */
+.navlink .gs {
+    transition: transform 300ms ease;
+    position: relative;
+}
+
+/* Default state: first text visible, second text below */
+.navlink .gs:first-child {
+    transform: translateY(0);
+}
+
+.navlink .gs:last-child {
+    transform: translateY(100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hover state: first text up, second text into view */
+.navlink:hover .gs:first-child {
+    transform: translateY(-100%);
+}
+
+.navlink:hover .gs:last-child {
+    transform: translateY(0);
+}
+
+/* Current page styling */
+.navlink.w--current {
+    color: #000;
+    background-color: #fff;
+    border-radius: 25px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.navlink.w--current:hover {
+    color: #fff;
+    background-color: #fff0;
+    border: 1px solid #fff;
+}
+
+/* ==========================================================================
+   3. BODY-SPECIFIC NAVIGATION STYLES
+   ========================================================================== */
+
+/* Red body navigation (works/about pages) */
+.redbody .navlink {
+    color: red;
+}
+
+.redbody .navlink.w--current {
+    color: white;
+    background: red;
+}
+
+/* Contact body navigation - REMOVED OLD STYLES TO PREVENT CONFLICTS */
+
+/* Specific contact page navigation styling */
+.cont-body .navlink .gs {
+    color: #ff0000 !important; /* Red text for non-current nav items */
+}
+
+.cont-body .navlink:hover .gs {
+    color: #cc0000 !important; /* Darker red on hover for non-current nav items */
+}
+
+.cont-body .navlink.w--current {
+    background: #ff0000 !important; /* Red background like universal theme */
+    color: #ffffff !important; /* White text for readability */
+    border-radius: 25px !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    overflow: visible !important; /* Prevent text clipping */
+    height: auto !important; /* Reset height */
+}
+
+/* Allow animation but ensure visibility */
+.cont-body .navlink.w--current .gs {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.cont-body .navlink.w--current .gs {
+    color: #FFFFFF !important; /* White text for current page on contacts */
+    font-weight: 500 !important;
+    text-align: center !important;
+}
+
+/* Disable animation on current nav item and position text */
+.cont-body .navlink.w--current .gs:first-child {
+    transform: translateY(0) !important;
+}
+
+.cont-body .navlink.w--current .gs:last-child {
+    display: none !important;
+}
+
+.cont-body .navlink.w--current:hover .gs:first-child {
+    transform: translateY(0) !important;
+}
+
+.cont-body .navlink.w--current:hover .gs,
+.cont-body .navlink.w--current:hover .gs:first-child {
+    color: #FFFFFF !important; /* Override to white for consistency */
+}
+
+/* ==========================================================================
+   UNIVERSAL RED NAVIGATION OVERRIDE - Apply red theme to all pages
+   ========================================================================== */
+
+/* Universal red navigation override - applies on top of existing styles */
+.header .navbar .nav-menu .navlink .gs {
+    color: #ff0000 !important;
+}
+
+.header .navbar .nav-menu .navlink:hover .gs {
+    color: #cc0000 !important;
+}
+
+/* Current page styling - RED BACKGROUND, WHITE TEXT */
+.header .navbar .nav-menu .navlink.w--current {
+    background-color: #ff0000 !important;
+    border-radius: 25px !important;
+    padding: 12px 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    overflow: visible !important; /* Prevent text clipping */
+    height: auto !important; /* Reset height */
+}
+
+/* Allow animation but ensure visibility - Universal */
+.header .navbar .nav-menu .navlink.w--current .gs {
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+/* Desktop selected navigation - WHITE TEXT */
+.header .navbar .nav-menu .navlink.w--current .gs {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+}
+
+/* Disable animation on current nav item and hide duplicate - Universal */
+.header .navbar .nav-menu .navlink.w--current .gs:first-child {
+    transform: translateY(0) !important;
+}
+
+.header .navbar .nav-menu .navlink.w--current .gs:last-child {
+    display: none !important;
+}
+
+.header .navbar .nav-menu .navlink.w--current:hover .gs:first-child {
+    transform: translateY(0) !important;
+}
+
+/* Ensure white text on selected nav item for desktop */
+.navlink.w--current .gs,
+.header .navlink.w--current .gs,
+.navbar .navlink.w--current .gs {
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   UNIVERSAL MOBILE NAVIGATION - RED THEME
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+    /* Universal mobile navigation styles - override for all pages */
+    .header .navbar .nav-menu .navlink .gs {
+        color: #ff0000 !important;
+        font-size: 16px !important;
+        line-height: 18px !important;
+    }
+    
+    .header .navbar .nav-menu .navlink:hover .gs {
+        color: #cc0000 !important;
+    }
+    
+    .header .navbar .nav-menu .navlink.w--current {
+        background-color: #ff0000 !important;
+        border-radius: 20px !important;
+        padding: 8px 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+    
+    .header .navbar .nav-menu .navlink.w--current .gs {
+        color: #ffffff !important;
+        font-weight: 500 !important;
+        font-size: 16px !important;
+        text-align: center !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Small mobile universal navigation */
+    .header .navbar .nav-menu .navlink .gs {
+        color: #ff0000 !important;
+        font-size: 14px !important;
+        line-height: 16px !important;
+    }
+    
+    .header .navbar .nav-menu .navlink.w--current {
+        border-radius: 18px !important;
+        padding: 6px 12px !important;
+    }
+    
+    .header .navbar .nav-menu .navlink.w--current .gs {
+        color: #ffffff !important;
+        font-size: 14px !important;
+        text-align: center !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    /* Extra small mobile universal navigation */
+    .header .navbar .nav-menu .navlink .gs {
+        color: #ff0000 !important;
+        font-size: 12px !important;
+        line-height: 14px !important;
+    }
+    
+    .header .navbar .nav-menu .navlink.w--current {
+        border-radius: 15px !important;
+        padding: 5px 10px !important;
+    }
+    
+    .header .navbar .nav-menu .navlink.w--current .gs {
+        color: #ffffff !important;
+        font-size: 12px !important;
+        text-align: center !important;
+    }
+}
+
+/* ==========================================================================
+   4. TAB-BASED NAVIGATION STATES
+   ========================================================================== */
+
+/* Tab content states for different pages */
+html:has(.w-tab-pane:nth-child(2).w--tab-active) .navlink,
+html:has(.w-tab-pane:nth-child(3).w--tab-active) .navlink {
+    color: red;
+}
+
+html:has(.w-tab-pane:nth-child(2).w--tab-active) .navlink.w--current,
+html:has(.w-tab-pane:nth-child(3).w--tab-active) .navlink.w--current {
+    color: white;
+    background-color: red;
+}
+
+html:has(.w-tab-pane:nth-child(4).w--tab-active) .navlink {
+    color: black;
+}
+
+html:has(.w-tab-pane:nth-child(4).w--tab-active) .navlink.w--current {
+    color: red;
+    background-color: black;
+}
+
+/* ==========================================================================
+   5. WEBFLOW NAVIGATION COMPONENTS
+   ========================================================================== */
+
+.w-nav {
+    z-index: 1000;
+    background: #ddd;
+    position: relative;
+}
+
+.w-nav:before, .w-nav:after {
+    content: " ";
+    grid-area: 1 / 1 / 2 / 2;
+    display: table;
+}
+
+.w-nav:after {
+    clear: both;
+}
+
+.w-nav-brand {
+    float: left;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+}
+
+.w-nav-link {
+    vertical-align: top;
+    color: #222;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+}
+
+.w-nav-link.w--current {
+    color: #0082f3;
+}
+
+.w-nav-menu {
+    float: right;
+    position: relative;
+}
+
+[data-nav-menu-open] {
+    text-align: center;
+    background: #c8c8c8;
+    min-width: 200px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    overflow: visible;
+    display: block !important;
+}
+
+.w--nav-link-open {
+    display: block;
+    position: relative;
+}
+
+.w-nav-overlay {
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.w-nav-overlay [data-nav-menu-open] {
+    top: 0;
+}
+
+.w-nav[data-animation="over-left"] .w-nav-overlay {
+    width: auto;
+}
+
+.w-nav[data-animation="over-right"] .w-nav-overlay {
+    width: auto;
+}
+
+.w-nav[data-animation="over-right"] .w-nav-overlay, .w-nav[data-animation="over-right"] [data-nav-menu-open] {
+    right: 0;
+}
+
+.w-nav-button {
+    float: right;
+    padding: 18px;
+    font-size: 24px;
+    display: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.w-nav-button:focus {
+    outline: 0;
+}
+
+.w-nav-button.w--open {
+    color: #fff;
+    background-color: #c8c8c8;
+}
+
+.w-nav[data-collapse="all"] .w-nav-menu {
+    display: none;
+}
+
+.w-nav[data-collapse="all"] .w-nav-button, .w--nav-dropdown-open, .w--nav-dropdown-toggle-open {
+    display: block;
+}
+
+.w--nav-dropdown-list-open {
+    position: static;
+}
+
+/* ==========================================================================
+   6. GS ELEMENT STYLING (Navigation text elements)
+   ========================================================================== */
+
+.gs {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    vertical-align: top;
+}
+
+/* Specific GS styling for different page contexts */
+.navlink .gs {
+    color: #FF0000 !important; /* Default red for non-current pages on index */
+}
+
+.navlink:hover .gs {
+    color: #FF0000 !important; /* Keep red on hover */
+}
+
+.navlink.w--current .gs,
+.cont-body .navlink.w--current .gs,
+.redbody .navlink.w--current .gs,
+.header .navbar .nav-menu .navlink.w--current .gs {
+    color: #FFFFFF !important; /* Current page is WHITE on index */
+}
+
+.navlink.w--current:hover .gs,
+.cont-body .navlink.w--current:hover .gs,
+.redbody .navlink.w--current:hover .gs,
+.header .navbar .nav-menu .navlink.w--current:hover .gs {
+    color: #FFFFFF !important; /* Current page stays white on hover */
+}
+
+/* SVG Path Colors for Index */
+#path {
+    stroke: #FF0000 !important;
+}
+
+#path2 {
+    stroke: #FF0000 !important;
+}
+
+/* ==========================================================================
+   7. MOBILE RESPONSIVE NAVIGATION
+   ========================================================================== */
+
+/* Tablet and Medium screens */
+@media screen and (max-width: 991px) {
+    .w-nav[data-collapse="medium"] .w-nav-menu {
+        display: none;
+    }
+
+    .w-nav[data-collapse="medium"] .w-nav-button {
+        display: block;
+    }
+}
+
+/* Mobile screens */
+@media screen and (max-width: 767px) {
+    .w-nav[data-collapse="small"] .w-nav-menu {
+        display: none;
+    }
+
+    .w-nav[data-collapse="small"] .w-nav-button {
+        display: block;
+    }
+
+    .w-nav-brand {
+        padding-left: 10px;
+    }
+}
+
+/* Small mobile screens */
+@media screen and (max-width: 479px) {
+    .w-nav[data-collapse="tiny"] .w-nav-menu {
+        display: none;
+    }
+
+    .w-nav[data-collapse="tiny"] .w-nav-button {
+        display: block;
+    }
+
+    .navlink {
+        font-size: 3.564rem;
+    }
+}
+
+/* Enhanced mobile navigation for specific pages */
+@media screen and (max-width: 768px) {
+    .header {
+        width: 100% !important;
+        padding: 0 !important;
+        background: transparent !important;
+        order: 1 !important;
+        position: relative !important;
+        z-index: 9999 !important;
+        margin-bottom: 80px !important;
+    }
+
+    .navbar {
+        width: 100% !important;
+        padding: 15px 15px !important;
+        justify-content: center !important;
+        position: relative !important;
+        z-index: 9999 !important;
+    }
+
+    .nav-menu {
+        width: calc(100vw - 30px) !important;
+        justify-content: space-between !important;
+        gap: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .navlink {
+        font-size: 16px !important;
+        padding: 6px 8px !important;
+        min-height: 36px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex: 1 !important;
+        margin: 0 2px !important;
+        border-radius: 18px !important;
+        transition: all 0.3s ease !important;
+        min-width: 70px !important;
+        font-weight: 500 !important;
+        height: auto !important;
+    }
+
+    .navlink:hover {
+        background: rgba(0, 0, 0, 0.1) !important;
+        transform: scale(1.02) !important;
+    }
+
+    .navlink .gs {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
+    /* Fix navigation duplication on mobile */
+    .navlink .gs:first-child {
+        display: block !important;
+    }
+
+    .navlink .gs:last-child {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .navbar {
+        padding: 12px 10px !important;
+    }
+
+    .nav-menu {
+        width: calc(100vw - 20px) !important;
+    }
+
+    .navlink {
+        font-size: 14px !important;
+        padding: 6px 8px !important;
+        min-height: 36px !important;
+        margin: 0 2px !important;
+        min-width: 70px !important;
+        border-radius: 18px !important;
+        font-weight: 500 !important;
+    }
+
+    .navlink .gs {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
+    /* Fix navigation duplication on mobile */
+    .navlink .gs:first-child {
+        display: block !important;
+    }
+
+    .navlink .gs:last-child {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .navbar {
+        padding: 10px 8px !important;
+    }
+
+    .nav-menu {
+        width: calc(100vw - 16px) !important;
+    }
+
+    .navlink {
+        font-size: 12px !important;
+        padding: 6px 8px !important;
+        min-height: 32px !important;
+        margin: 0 2px !important;
+        min-width: 60px !important;
+        border-radius: 16px !important;
+        font-weight: 500 !important;
+    }
+
+    .navlink .gs {
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
+    /* Fix navigation duplication on mobile */
+    .navlink .gs:first-child {
+        display: block !important;
+    }
+
+    .navlink .gs:last-child {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   8. PAGE-SPECIFIC NAVIGATION OVERRIDES
+   ========================================================================== */
+
+/* Contact page specific navigation styles */
+.cont-body .header {
+    order: 1 !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    background: transparent !important;
+    width: 100% !important;
+    margin-bottom: 80px !important;
+}
+
+/* Works page specific navigation styles */
+.redbody .header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    background: transparent !important;
+    pointer-events: none !important;
+}
+
+.redbody .navbar {
+    pointer-events: all !important;
+    position: relative !important;
+    z-index: 9999 !important;
+}
+
+.redbody .nav-menu {
+    pointer-events: all !important;
+}
+
+.redbody .navlink {
+    pointer-events: all !important;
+    border: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+
+.redbody .navlink:focus {
+    outline: none !important;
+    border: none !important;
+}
+
+.redbody .navlink:hover {
+    border: none !important;
+    outline: none !important;
+}
+
+.redbody .navlink .gs {
+    border: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+    text-stroke: none !important;
+    -webkit-text-stroke: none !important;
+}
+
+/* ==========================================================================
+   9. ACCESSIBILITY AND FOCUS STATES
+   ========================================================================== */
+
+.navlink:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.navlink:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ==========================================================================
+   10. ANIMATION STATES AND TRANSITIONS
+   ========================================================================== */
+
+.navlink,
+.navlink.w--current,
+.nav-menu,
+.header {
+    transition: all 0.3s ease;
+}
+
+/* Enhanced hover states */
+.navlink:hover {
+    transform: scale(1.02);
+}
+
+.navlink.w--current:hover {
+    transform: scale(1.05);
+}
+
+/* ================================================================
+   WORKS PAGE ADDITIONAL STYLES (from inline CSS)
+   ================================================================ */
+
+/* Fix red text positioning and visibility - Remove duplicates for mobile works page */
+@media screen and (max-width: 768px) {
+    .section.h-auto {
+        padding: 20px 10px !important;
+        margin: 40px 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    .scroll-text-line {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        line-height: 1 !important;
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        position: relative !important;
+    }
+    
+    .scroll-trigger-keeper {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Force ONLY main red text to be visible and properly sized */
+    .scroll-text-line > .p-124-124:not(.abs) {
+        font-size: clamp(48px, 12vw, 84px) !important;
+        line-height: clamp(50px, 13vw, 90px) !important;
+        color: #FF0000 !important;
+        background: transparent !important;
+        text-shadow: none !important;
+        -webkit-text-fill-color: #FF0000 !important;
+        -webkit-text-stroke: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 20px !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 10 !important;
+    }
+    
+    /* Hide all other p-124-124 elements (duplicates) */
+    .p-124-124.abs,
+    .scroll-trigger-keeper,
+    .scroll-trigger-keeper .p-124-124 {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Fix red text for smaller mobile */
+    .scroll-text-line > .p-124-124:not(.abs) {
+        font-size: clamp(36px, 10vw, 60px) !important;
+        line-height: clamp(38px, 11vw, 65px) !important;
+        padding: 0 15px !important;
+        color: #FF0000 !important;
+        -webkit-text-fill-color: #FF0000 !important;
+    }
+    
+    .section.h-auto {
+        margin-top: 100px !important;
+        padding: 0 15px !important;
+    }
+}
+
+/* Enhanced Works Page Navigation Colors */
+.redbody .navlink .gs {
+    color: #FF0000 !important; /* Red for non-current pages */
+}
+
+.redbody .navlink:hover .gs {
+    color: #FFFFFF !important; /* White on hover for visibility on red background */
+}
+
+.redbody .navlink.w--current .gs {
+    color: #FFFFFF !important; /* Only current page is white */
+}
+
+.redbody .navlink.w--current:hover .gs {
+    color: #FFFFFF !important; /* Current page stays white on hover */
+}
+
+/* Enhanced works page mobile navigation */
+@media screen and (max-width: 768px) {
+    .redbody .navbar {
+        width: 100% !important;
+        padding: 15px 15px !important;
+        justify-content: center !important;
+    }
+    
+    .redbody .nav-menu {
+        width: calc(100vw - 30px) !important;
+        justify-content: space-between !important;
+        gap: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .redbody .navlink {
+        font-size: 16px !important;
+        padding: 8px 12px !important;
+        min-height: 40px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex: 1 !important;
+        margin: 0 4px !important;
+        border-radius: 20px !important;
+        transition: all 0.3s ease !important;
+        min-width: 80px !important;
+        font-weight: 500 !important;
+    }
+    
+    .redbody .navlink:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        transform: scale(1.02) !important;
+    }
+    
+    .redbody .navlink.w--current {
+        background: #FF0000 !important;
+        color: white !important;
+    }
+    
+    .redbody .navlink .gs {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .redbody .navbar {
+        padding: 12px 10px !important;
+    }
+    
+    .redbody .nav-menu {
+        width: calc(100vw - 20px) !important;
+    }
+    
+    .redbody .navlink {
+        font-size: 14px !important;
+        padding: 6px 10px !important;
+        min-height: 36px !important;
+        margin: 0 3px !important;
+        min-width: 70px !important;
+        border-radius: 18px !important;
+        font-weight: 500 !important;
+    }
+    
+    .redbody .navlink .gs {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .redbody .navbar {
+        padding: 10px 8px !important;
+    }
+    
+    .redbody .nav-menu {
+        width: calc(100vw - 16px) !important;
+    }
+    
+    .redbody .navlink {
+        font-size: 12px !important;
+        padding: 6px 8px !important;
+        min-height: 32px !important;
+        margin: 0 2px !important;
+        min-width: 60px !important;
+        border-radius: 16px !important;
+        font-weight: 500 !important;
+    }
+    
+    .redbody .navlink .gs {
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        text-align: center !important;
+        width: 100% !important;
+    }
+}
+
+/* ==========================================================================
+   END OF NAVIGATION STYLES
+   ========================================================================== */
+
+
+
+

@@ -1,0 +1,996 @@
+/* ==========================================================================
+   INDEX PAGE STYLES
+   Specific styles for the index.html page
+   Author: Carolina Santos
+   Last Updated: December 2025
+   ========================================================================== */
+
+/* ==========================================================================
+   1. INDEX PAGE LAYOUT
+   ========================================================================== */
+
+.barba-container.home-page {
+    z-index: 1;
+    background-color: #fff;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+.conteiner.home-cont {
+    z-index: 1;
+    background-color: #fff;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+.conteiner.home-cont.scroll-hidden {
+    overflow: hidden;
+}
+
+.conteiner.home-cont img[alt="LLLL Design Logo"] {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   2. VIDEO BACKGROUNDS (Index specific)
+   ========================================================================== */
+
+.background-video.bg-carolina {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background-video.bg-carolina video {
+    position: static;
+    max-height: 100vh;
+    object-fit: contain;
+    background: none !important;
+}
+
+.bg-carolina video {
+    position: static;
+    max-height: 100vh;
+    object-fit: contain;
+    background: none !important;
+}
+
+.bg-carolina .background-video video { 
+    background: none !important;
+}
+
+.w-background-video > video { 
+    transition: opacity 1000ms ease;
+}
+
+/* ==========================================================================
+   3. MARQUEE ANIMATION (Index specific)
+   ========================================================================== */
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0%) translateZ(0);
+    }
+    100% {
+        transform: translateX(-50%) translateZ(0);
+    }
+}
+
+.marq { 
+    pointer-events: none;
+    animation: marquee 50s linear infinite;
+    animation-play-state: paused;
+}
+
+.marq.active {
+    animation-play-state: running;
+    will-change: transform;
+}
+
+.marq-in_div img { 
+    transition: all 0.3s ease;
+}
+
+.marq.active:has(.marq-in_div img:hover) { 
+    animation-play-state: paused;
+}
+
+.marq-in_div img {
+    pointer-events: all;
+}
+
+/* ==========================================================================
+   4. LOADER BLOCKS (Index specific)
+   ========================================================================== */
+
+.loads-block-sleet { 
+    min-height: calc(50% + 10rem); 
+    max-height: calc(100% - 20rem); 
+}
+
+.loads-block-sleet-dottom { 
+    min-height: calc(50% + 20rem); 
+    max-height: calc(100%); 
+}
+
+.home-page .loads-block-sleet,
+.home-page .loads-block-sleet-dottom {
+    height: 0;
+}
+
+.loads-block-sleet {
+    height: 100%;
+}
+
+.loads-block-sleet-dottom {
+    height: 100%;
+}
+
+.text-block-2 { 
+    transition: opacity 1000ms linear;
+}
+
+.home-page .text-block-2 { 
+    opacity: 1;
+}
+
+.gotopage .text-block-2 { 
+    opacity: 0;
+}
+
+.text-block-2 {
+    visibility: hidden;
+}
+
+.home-page .text-block-2 {
+    visibility: visible;
+    opacity: 1;
+}
+
+.gotopage .text-block-2 {
+    visibility: hidden;
+}
+
+/* ==========================================================================
+   5. SLIDER LAYOUT (Index specific)
+   ========================================================================== */
+
+.splide { 
+    height: 100%; 
+}
+
+.splide.flexible-content-product-slider {
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    overflow: hidden;
+}
+
+.splide__track {
+    padding-left: 0px;
+    padding-right: 0px;
+    height: calc(100% - 120rem);
+    width: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    aspect-ratio: 16 / 9;
+    flex: none;
+    min-width: 100%;
+}
+
+.splide__list { 
+    height: auto; 
+    grid-column-gap: 20rem;
+    grid-row-gap: 20rem;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: auto;
+    display: flex;
+}
+
+.splide__slide { 
+    transform: scale(1);
+    transform-origin: top;
+    transition: all 300ms ease;
+    width: 600rem !important;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    flex-flow: column;
+    flex: none;
+    width: 300rem;
+    font-size: 0;
+    line-height: 0;
+    position: relative;
+}
+
+.splide__slide.is-active {
+    transform: scale(1);
+}
+
+.splide__sr { 
+    display: none !important; 
+}
+
+.splide__arrows { 
+    display: none; 
+}
+
+/* ==========================================================================
+   6. PAGINATION INDICATORS (Index specific)
+   ========================================================================== */
+
+.splide__pagination {
+    z-index: 999;
+    background-color: #fff0;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: auto;
+    margin-left: 7rem;
+    margin-right: 0;
+    display: flex;
+    position: absolute;
+    inset: auto 0% 0% auto;
+}
+
+.splide__pagination li {
+    background-color: #0000;
+    border-radius: 100px;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 0;
+    margin-right: 7rem;
+    display: flex;
+    position: relative;
+    overflow: visible;
+}
+
+.splide__pagination li:has(.is-active) {
+    background-color: #000;
+    width: 50rem;
+    transition: all 300ms ease;
+}
+
+.splide__pagination li button {
+    opacity: 0;
+    background-color: #0000;
+    border-radius: 100px;
+    width: 100%;
+    height: 100%;
+    transition: all 300ms ease;
+}
+
+.splide__pagination li:after { 
+    display: none; 
+}
+
+.splide__pagination li:has(> .is-active):after {
+    background-color: #000;
+}
+
+/* Enhanced Splide Pagination for Index */
+.splide__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    padding-top: initial;
+    margin-top: auto;
+    position: absolute;
+    bottom: 10rem;
+    width: 100%;
+}
+
+.splide__pagination li {
+    display: block;
+    position: relative;
+    height: 8rem;
+    width: 1px;
+    background: white;
+    max-width: 1px;
+    padding: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: all 500ms ease;
+}
+
+.splide__pagination li:has(.is-active) {
+    width: 60px;
+    width: 8rem;
+    max-width: 8rem;
+}
+
+.splide__pagination li:after {
+    content: "";
+    width: 1px;
+    display: block;
+    height: 100%;
+    background: white;
+    transform-origin: top;
+    transform: scaleY(0.2);
+    transition: all 300ms ease;
+}
+
+.splide__pagination li:has(> .is-active):after {
+    transform: scaleY(1);
+}
+
+.splide__pagination li:after {
+    display: none;
+}
+
+/* ==========================================================================
+   7. HOME PAGE SPECIFIC ELEMENTS
+   ========================================================================== */
+
+.video {
+    width: auto;
+    height: 100%;
+    flex: none;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    border-radius: 0px;
+    margin-left: 7rem;
+}
+
+body.logo-hidden .splide__slide {
+    opacity: 0.3;
+}
+
+body.logo-hidden .video {
+    opacity: 0.3;
+}
+
+.div-block-16 {
+    z-index: 100;
+    background-color: #fff;
+    border-radius: 0px;
+    flex-flow: row;
+    flex: none;
+    grid-column-gap: 0rem;
+    grid-row-gap: 0rem;
+    justify-content: flex-start;
+    align-items: stretch;
+    width: auto;
+    margin-left: 7rem;
+    margin-right: 7rem;
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    position: relative;
+}
+
+.div-block-16 > div {
+    flex: 1;
+}
+
+.div-block-16 div div div {
+    opacity: 0;
+    transition: all 300ms ease;
+    background: red;
+    height: 15rem;
+}
+
+.div-block-16 div.divactive div div {
+    opacity: 1;
+    height: 45rem;
+}
+
+.div-block-16 div div:nth-child(2) div {
+    background: black;
+}
+
+.div-block-16 div div:nth-child(3) div {
+    background: red;
+}
+
+.div-block-16 div div {
+    cursor: pointer;
+    display: flex;
+}
+
+/* ==========================================================================
+   8. TEXT AND TYPOGRAPHY (Index specific)
+   ========================================================================== */
+
+.text-block, .div-block-8 div, .splide__slide > div:last-child {
+    font-size: 16rem;
+    font-weight: 500;
+    line-height: 16rem;
+}
+
+/* ==========================================================================
+   9. LINES AND VISUAL ELEMENTS
+   ========================================================================== */
+
+.lines {
+    z-index: 999999999;
+    width: 1px;
+    height: 100vh;
+    position: fixed;
+    inset: 0% auto auto 50%;
+}
+
+.lines.active {
+    transform: rotate(90deg);
+    transform-origin: top;
+    width: 100vh;
+    height: 1px;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE DESIGN (Index specific)
+   ========================================================================== */
+
+@media screen and (min-width: 852px) {
+    .splide__track {
+        height: calc(100% - 120rem);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .section.about-page {
+        height: 100vh;
+    }
+}
+
+@media screen and (max-width: 495px) {
+    .section.about-page {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .background-video.bg-carolina {
+        height: auto;
+        min-height: 100vh;
+        width: 100%;
+        object-fit: cover;
+        background-size: cover;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .splide__track {
+        height: calc(100% - 60rem);
+    }
+    
+    .splide__list {
+        height: calc(100%);
+    }
+    
+    .splide__slide {
+        flex: none;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .div-block-16, .div-block-17 {
+        margin-left: 3.5rem;
+        margin-right: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .splide.flexible-content-product-slider {
+        height: calc(100vh - 100px);
+        min-height: calc(100vh - 100px);
+    }
+    
+    .splide__track {
+        height: calc(100% - 40rem);
+    }
+    
+    .splide__list {
+        height: calc(100%);
+    }
+    
+    .splide__slide {
+        height: calc(100%);
+    }
+    
+    .video {
+        height: calc(100%);
+        width: auto;
+        margin-left: 3.5rem;
+    }
+    
+    .div-block-16 {
+        margin-left: 3.5rem;
+        margin-right: 3.5rem;
+    }
+    
+    .div-block-9 {
+        height: 14rem;
+        width: 14rem;
+    }
+    
+    .div-block-9._2 {
+        margin-top: 2rem;
+    }
+}
+
+/* ==========================================================================
+   11. CUSTOM CURSOR (Index specific)
+   ========================================================================== */
+
+/* Cursor handled by JavaScript - no CSS cursor needed */
+/* Disable SVG cursor interactions */
+.cccuu {
+    display: none !important;
+}
+
+#svg, #path, #path2 {
+    display: none !important;
+}
+
+/* ==========================================================================
+   12. TAB-BASED NAVIGATION STATES (Index specific)
+   ========================================================================== */
+
+html:has(.w-tab-pane:nth-child(2).w--tab-active) .navlink, 
+html:has(.w-tab-pane:nth-child(3).w--tab-active) .navlink {
+    color: red;
+}
+
+html:has(.w-tab-pane:nth-child(2).w--tab-active) .navlink.w--current, 
+html:has(.w-tab-pane:nth-child(3).w--tab-active) .navlink.w--current {
+    color: white;
+    background-color: red;
+}
+
+html:has(.w-tab-pane:nth-child(2).w--tab-active) .dots, 
+html:has(.w-tab-pane:nth-child(3).w--tab-active) .dots {
+    background-color: red;
+}
+
+html:has(.w-tab-pane:nth-child(4).w--tab-active) .navlink {
+    color: black;
+}
+
+html:has(.w-tab-pane:nth-child(4).w--tab-active) .navlink.w--current {
+    color: red;
+    background-color: black;
+}
+
+html:has(.w-tab-pane:nth-child(4).w--tab-active) .dots {
+    background-color: black;
+}
+
+/* ==========================================================================
+   13. ABOUT SLIDER STYLES (Index specific)
+   ========================================================================== */
+
+/* About page slider specific styles */
+.about-slide {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.about-slide:not(.active) {
+    opacity: 0;
+}
+
+/* Navigation lines hover and active states */
+.nav-line {
+    transition: height 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-line:hover {
+    background-color: #333 !important;
+}
+
+.nav-line.active {
+    background-color: #000 !important;
+}
+
+/* Video smooth loading */
+#about-slider video {
+    transition: opacity 0.3s ease;
+}
+
+/* Accessibility improvements */
+.nav-line:focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   14. GIF ANIMATION ENFORCEMENT (Index specific)
+   ========================================================================== */
+
+/* Ensure GIFs always animate on index page */
+img[src$=".gif"] {
+    animation-play-state: running !important;
+    animation-iteration-count: infinite !important;
+    animation-fill-mode: both !important;
+}
+
+.work-item img {
+    animation-play-state: running !important;
+}
+
+.works-track .work-item img[src$=".gif"] {
+    animation-play-state: running !important;
+    animation-iteration-count: infinite !important;
+    animation-duration: inherit !important;
+    animation-delay: 0s !important;
+}
+
+/* ==========================================================================
+   15. VIDEO POSITIONING STYLES (Index specific)
+   ========================================================================== */
+
+/* Video visibility and positioning fixes */
+.styk-mom {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 10px 0 0 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+.styks {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 85vh !important;
+}
+
+.code-embed-2 {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 100% !important;
+}
+
+#eu-portfolio-video {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    height: 85vh !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure video container is visible */
+.styk-mom, .styks, .code-embed-2, #eu-portfolio-video {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Remove excessive spacing between sections */
+.section.about-page {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+    min-height: auto !important;
+}
+
+.text-block.opj._2 {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Override media query heights that cause spacing issues */
+@media screen and (min-width: 1024px) {
+    .section.about-page {
+        height: auto !important;
+        min-height: auto !important;
+    }
+}
+
+@media screen and (max-width: 495px) {
+    .section.about-page {
+        height: auto !important;
+        min-height: auto !important;
+    }
+}
+
+/* ==========================================================================
+   16. TYPOGRAPHY & RESPONSIVE TEXT SIZING (Index specific)
+   ========================================================================== */
+
+/* Fix font sizes that are affected by the responsive CSS */
+.p-124-124,
+.p-124-124.p-84-84 {
+    font-size: 96px !important;
+    line-height: 104px !important;
+}
+
+.text-block.opj._3.pad-40._2 {
+    font-size: 24px !important;
+    line-height: 32px !important;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Add more spacing between the scroll text lines */
+.scroll-text-line {
+    margin-bottom: 2rem !important;
+}
+
+/* Mobile responsive content */
+@media screen and (max-width: 991px) {
+    .p-124-124,
+    .p-124-124.p-84-84 {
+        font-size: clamp(56px, 8vw, 72px) !important;
+        line-height: clamp(64px, 9vw, 80px) !important;
+    }
+    
+    .text-block.opj._3.pad-40._2 {
+        font-size: 20px !important;
+        line-height: 28px !important;
+    }
+    
+    .scroll-text-line {
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .p-124-124,
+    .p-124-124.p-84-84 {
+        font-size: clamp(36px, 10vw, 56px) !important;
+        line-height: clamp(40px, 11vw, 64px) !important;
+    }
+    
+    .text-block.opj._3.pad-40._2 {
+        font-size: 18px !important;
+        line-height: 26px !important;
+        padding: 30px 15px;
+    }
+    
+    /* Mobile logo - make llilll vector span full width */
+    .top-head-block {
+        padding: 15px 0 !important;
+        width: 100% !important;
+    }
+    
+    .top-head-block .code-embed {
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .top-head-block img {
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        max-width: none !important;
+        display: block !important;
+    }
+    
+    /* Convert horizontal gallery to vertical on mobile */
+    .horizontal-works-slider {
+        padding: 20px 15px !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        height: auto !important;
+    }
+    
+    .works-track {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: 100% !important;
+        align-items: center !important;
+    }
+    
+    .work-item {
+        min-width: 100% !important;
+        width: 100% !important;
+        max-width: 350px !important;
+        height: 250px !important;
+        border-radius: 12px !important;
+        margin: 0 auto !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .work-item img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    
+    /* Mobile project info - adjust for vertical layout */
+    .div-block-16 {
+        font-size: 14px !important;
+        min-height: 60px !important;
+        padding: 15px 10px !important;
+        position: relative !important;
+        background: rgba(255, 255, 255, 0.9) !important;
+        margin-top: 10px !important;
+    }
+    
+    .project-info {
+        padding: 10px !important;
+        position: relative !important;
+        left: 0 !important;
+        transform: none !important;
+    }
+    
+    .project-info span[style*="font-size: 22px"] {
+        font-size: clamp(16px, 4vw, 20px) !important;
+    }
+    
+    .project-info span[style*="font-size: 16px"] {
+        font-size: clamp(12px, 3vw, 14px) !important;
+    }
+}
+
+/* ==========================================================================
+   17. INLINE STYLE REPLACEMENTS (Index specific)
+   ========================================================================== */
+
+/* Logo and embed opacity fixes */
+.logo-embed {
+    opacity: 1 !important;
+}
+
+/* "And who is this?" text styling */
+.intro-text {
+    font-family: 'Neue Montreal', 'Arial', sans-serif !important;
+    color: #ff0000 !important;
+}
+
+/* Video container styling */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+}
+
+/* Video iframe positioning */
+.video-iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 56.25vw;
+    min-height: 100%;
+    min-width: 177.77vh;
+    transform: translate(-50%, -50%);
+    border: none;
+}
+
+/* Video overlay to prevent interaction */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: auto;
+    background: transparent;
+}
+
+/* Spacing divider */
+.spacing-divider {
+    height: 20px;
+    margin: 40px 0;
+}
+
+/* Works gallery container */
+.works-gallery-container {
+    width: 100%;
+    padding: 40rem 0;
+    background: transparent;
+    position: relative;
+}
+
+/* Desktop-only spacing between Carolina Santos text and gallery - MASSIVE SPACING */
+@media screen and (min-width: 1024px) {
+    /* Highly specific selector to override conflicting styles */
+    body.redbody .app .wrapper .barba-container.about-container .div-block .section.h-auto {
+        margin-bottom: 60rem !important;
+        padding-bottom: 40rem !important;
+    }
+    
+    /* Add space before works gallery with more specificity */
+    body.redbody .app .wrapper .barba-container.about-container .div-block .works-gallery-container {
+        margin-top: 60rem !important;
+        padding-top: 40rem !important;
+        position: relative;
+    }
+    
+    /* Alternative approach - add a spacer between sections */
+    body.redbody .section.h-auto + .works-gallery-container::before {
+        content: '';
+        display: block;
+        height: 80rem;
+        width: 100%;
+    }
+}
+
+/* Horizontal works slider */
+.horizontal-works-slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 20rem 20rem;
+    scroll-behavior: smooth;
+}
+
+/* Works track */
+.works-track {
+    display: flex;
+    gap: 30rem;
+    width: max-content;
+    align-items: center;
+}
+
+/* Work item styling */
+.work-item {
+    min-width: 50vw;
+    height: 60vh;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+/* Work item images and iframes */
+.work-item img,
+.work-item iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+    pointer-events: none;
+}
+
+/* Disclaimer section */
+.disclaimer-section {
+    width: 100%;
+    padding: 60px 20px 20px;
+    text-align: center;
+    background: transparent;
+}
+
+/* Disclaimer text - 30% smaller for desktop */
+.disclaimer-text {
+    font-family: 'Neue Montreal', Arial, sans-serif;
+    font-size: 10px; /* 30% smaller than 14px */
+    font-weight: 400;
+    color: #FF0000;
+    line-height: 1.4;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* 50% smaller disclaimer text for mobile */
+@media screen and (max-width: 991px) {
+    .disclaimer-text {
+        font-size: 7px; /* 50% smaller than 14px */
+    }
+}
+
+/* ==========================================================================
+   END OF INDEX PAGE STYLES
+   ========================================================================== */ 
