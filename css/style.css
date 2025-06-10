@@ -358,6 +358,44 @@ html.w-mod-touch * {
    ========================================================================== */
 
 /* Custom Fonts with Browser Fallbacks */
+
+/* Neue Machina Font Family - Enhanced with better fallbacks */
+@font-face {
+    font-family: 'Neue Machina';
+    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff2") format("woff2"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff") format("woff"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.otf") format("opentype"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff2") format("woff2"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff") format("woff"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.otf") format("opentype"),
+         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.woff2") format("woff2"),
+         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.woff") format("woff"),
+         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.otf") format("opentype"),
+         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @font-face {
     font-family: 'Ppeditorialold';
     src: url('https://cdn.prod.website-files.com/66e19f30cf68e6d9110bdee0/66feacec693aef1d8870db99_PPEditorialOld-UltraboldItalic.otf') format('opentype'),
@@ -444,7 +482,7 @@ html.w-mod-touch * {
 }
 
 .body {
-    font-family: "Neue Montreal 500", "Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: "Neue Montreal 500", "Neue Montreal", "Neue Machina", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .body.blk {
@@ -4380,11 +4418,12 @@ img[src$=".gif"] {
 
 .marq-in {
     transition: transform 0.3s ease-out;
-    touch-action: pan-y pinch-zoom;
+    touch-action: pan-y;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 /* Smooth transition for momentum scrolling */

@@ -140,6 +140,16 @@ documentReady(function() {
             
             // Enhanced marquee gallery with auto-scroll, loop, and manual control
             initAdvancedMarquee();
+            
+            // Additional mobile touch support
+            setTimeout(() => {
+                console.log('📱 Adding additional mobile support...');
+                marqueeContainers.forEach((container, index) => {
+                    container.addEventListener('touchstart', (e) => {
+                        console.log(`📱 Global touch start on container ${index + 1}`);
+                    }, {passive: false});
+                });
+            }, 500);
         } else {
             console.log('No marquee containers found, skipping initialization');
         }
@@ -199,7 +209,11 @@ function initAdvancedMarquee() {
         // CSS animation handles the auto-scroll - no JavaScript animation needed
         
         // Enhanced manual scroll handlers with better touch support
-        let isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        let isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                             window.matchMedia('(max-width: 768px)').matches ||
+                             ('ontouchstart' in window) ||
+                             (navigator.maxTouchPoints > 0) ||
+                             window.matchMedia('(hover: none) and (pointer: coarse)').matches;
         let startX = 0;
         let startY = 0;
         let isDragging = false;
@@ -346,11 +360,21 @@ function initAdvancedMarquee() {
         container.addEventListener('mouseup', handleEnd, {passive: false});
         container.addEventListener('mouseleave', handleEnd, {passive: false});
         
-        // Touch events with better passive handling
+        // Touch events with enhanced mobile support
         container.addEventListener('touchstart', handleStart, {passive: false});
         container.addEventListener('touchmove', handleMove, {passive: false});
         container.addEventListener('touchend', handleEnd, {passive: false});
         container.addEventListener('touchcancel', handleEnd, {passive: false});
+        
+        // Additional mobile touch activation for embedded videos
+        const videoElements = container.querySelectorAll('iframe, video');
+        videoElements.forEach(video => {
+            video.addEventListener('touchstart', (e) => {
+                console.log(`📱 Touch start on video in marquee ${index + 1}`);
+                // Enable video interaction but still allow drag
+                e.stopPropagation();
+            }, {passive: false});
+        });
         
         // Enhanced hover pause with better reliability
         let hoverTimeout;
@@ -439,10 +463,23 @@ function initAdvancedMarquee() {
         // Set initial cursor
         marqueeIn.style.cursor = 'grab';
         
-        console.log(`🎉 Marquee ${index + 1} initialized successfully! CSS animation activated.`);
+        console.log(`🎉 Marquee ${index + 1} initialized successfully! CSS animation activated. Mobile: ${isMobileDevice}`);
     });
     
     console.log(`🚀 Advanced Marquee System initialization complete! ${marqueeContainers.length} galleries ready.`);
+    console.log(`📱 Mobile device detected: ${marqueeContainers.length > 0 ? marqueeContainers[0].querySelector('.marq').isMobileDevice || 'Unknown' : 'N/A'}`);
+    
+    // Fallback initialization after a delay if needed
+    setTimeout(() => {
+        const unInitializedMarquees = document.querySelectorAll('.berflow._2 .marq:not(.active)');
+        if (unInitializedMarquees.length > 0) {
+            console.log(`🔄 Re-initializing ${unInitializedMarquees.length} marquees...`);
+            unInitializedMarquees.forEach(marquee => {
+                marquee.classList.add('active');
+                console.log('🔄 Fallback activation for marquee');
+            });
+        }
+    }, 2000);
 }
 
 /* 3. CONTACT PAGE SCRIPTS
