@@ -127,43 +127,21 @@ documentReady(function() {
     document.body.style.cursor = 'none';
     
             // Enhanced cursor interaction for works page
-        if (window.location.pathname.includes('works.html') || document.body.classList.contains('works-page')) {
-            console.log('Works page detected, initializing advanced features...');
-            
-            // Add hover effects for video containers and marquee items
-            const videoContainers = document.querySelectorAll('.video-container-six, .marq-in_div');
-            const marqueeElements = document.querySelectorAll('.marq');
-            
-            videoContainers.forEach(container => {
-                container.addEventListener('mouseenter', function() {
-                    if (cursor) {
-                        cursor.style.transform = `translate(${mouseX - 30}px, ${mouseY - 30}px) scale(1.2)`;
-                        cursor.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.6) 0%, rgba(255, 0, 0, 0.3) 30%, rgba(255, 0, 0, 0.15) 60%, transparent 80%)';
-                    }
-                    
-                    // Pause marquee on hover
-                    marqueeElements.forEach(marquee => {
-                        marquee.style.animationPlayState = 'paused';
-                    });
-                });
-                
-                container.addEventListener('mouseleave', function() {
-                    if (cursor) {
-                        cursor.style.transform = `translate(${mouseX - 30}px, ${mouseY - 30}px) scale(1)`;
-                        cursor.style.background = 'radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, rgba(255, 0, 0, 0.2) 30%, rgba(255, 0, 0, 0.1) 60%, transparent 80%)';
-                    }
-                    
-                    // Resume marquee when not hovering
-                    marqueeElements.forEach(marquee => {
-                        marquee.style.animationPlayState = 'running';
-                    });
-                });
-            });
+        console.log('Checking for works page...');
+        console.log('Current pathname:', window.location.pathname);
+        console.log('Document body classes:', document.body.className);
+        
+        // Always initialize on any page that has marquee containers
+        const marqueeContainers = document.querySelectorAll('.berflow._2');
+        console.log('Found marquee containers:', marqueeContainers.length);
+        
+        if (marqueeContainers.length > 0) {
+            console.log('Marquee containers found, initializing...');
             
             // Enhanced marquee gallery with auto-scroll, loop, and manual control
             initAdvancedMarquee();
         } else {
-            console.log('Not on works page, current path:', window.location.pathname);
+            console.log('No marquee containers found, skipping initialization');
         }
 });
 
@@ -173,31 +151,37 @@ documentReady(function() {
 function initAdvancedMarquee() {
     const marqueeContainers = document.querySelectorAll('.berflow._2');
     
-    console.log('Initializing Advanced Marquee System...');
+    console.log('🎪 Initializing Advanced Marquee System...');
     console.log('Found marquee containers:', marqueeContainers.length);
     console.log('Document ready state:', document.readyState);
     
+    // Prevent multiple initializations
+    if (window.marqueeInitialized) {
+        console.log('⚠️ Marquee already initialized, skipping');
+        return;
+    }
+    window.marqueeInitialized = true;
+    
     marqueeContainers.forEach((container, index) => {
-        console.log('Initializing marquee', index + 1);
+        console.log(`🎠 Initializing marquee ${index + 1}`);
         const marquee = container.querySelector('.marq');
-        const marqueeIn = marquee.querySelector('.marq-in');
-        const items = Array.from(marqueeIn.querySelectorAll('.marq-in_div'));
+        const marqueeIn = marquee ? marquee.querySelector('.marq-in') : null;
+        const items = marqueeIn ? Array.from(marqueeIn.querySelectorAll('.marq-in_div')) : [];
         
         if (!marquee || !marqueeIn || items.length === 0) {
-            console.log('Skipping marquee', index + 1, '- missing elements');
+            console.log(`❌ Skipping marquee ${index + 1} - missing elements:`, {
+                marquee: !!marquee,
+                marqueeIn: !!marqueeIn,
+                items: items.length
+            });
             return;
         }
         
-        console.log('Marquee', index + 1, 'has', items.length, 'items');
+        console.log(`✅ Marquee ${index + 1} has ${items.length} items`);
         
         // Create isolated variables for each marquee instance
-        let isUserScrolling = false;
         let userScrollTimeout;
         let currentPosition = 0;
-        let autoScrollDirection = 1; // 1 for forward, -1 for backward
-        let scrollSpeed = 0.5; // pixels per frame
-        let lastFrameTime = 0;
-        let animationId;
         
         // Calculate item width including margins
         const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(items[0]).marginRight);
@@ -212,25 +196,7 @@ function initAdvancedMarquee() {
         const initialOffset = (containerWidth / 2) - (itemWidth / 2);
         currentPosition = initialOffset;
         
-        // Auto-scroll animation (isolated for each marquee)
-        function autoScroll(timestamp) {
-            if (!isUserScrolling) {
-                if (timestamp - lastFrameTime >= 16) { // ~60fps
-                    currentPosition += scrollSpeed * autoScrollDirection;
-                    
-                    // Handle looping
-                    if (currentPosition <= -totalWidth) {
-                        currentPosition = initialOffset;
-                    } else if (currentPosition >= initialOffset + itemWidth) {
-                        currentPosition = -totalWidth + initialOffset;
-                    }
-                    
-                    marqueeIn.style.transform = `translateX(${currentPosition}px)`;
-                    lastFrameTime = timestamp;
-                }
-            }
-            animationId = requestAnimationFrame(autoScroll);
-        }
+        // CSS animation handles the auto-scroll - no JavaScript animation needed
         
         // Enhanced manual scroll handlers with better touch support
         let isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -244,6 +210,8 @@ function initAdvancedMarquee() {
         let velocity = 0;
         
         function handleStart(e) {
+            console.log(`🖱️ Drag start on marquee ${index + 1}:`, e.type);
+            
             const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
             
@@ -251,10 +219,12 @@ function initAdvancedMarquee() {
             startY = clientY;
             isDragging = true;
             isHorizontalDrag = false;
-            isUserScrolling = true;
             lastScrollPosition = currentPosition;
             lastMoveTime = Date.now();
             velocity = 0;
+            
+            // Pause CSS animation during drag
+            marquee.style.animationPlayState = 'paused';
             
             clearTimeout(userScrollTimeout);
             clearTimeout(hoverTimeout);
@@ -270,7 +240,7 @@ function initAdvancedMarquee() {
                 e.preventDefault();
             }
             
-            console.log('Marquee', index + 1, 'drag started', isMobileDevice ? '(mobile)' : '(desktop)');
+            console.log(`✅ Marquee ${index + 1} drag started - ${isMobileDevice ? 'Mobile' : 'Desktop'} | Position: ${currentPosition}`);
         }
         
         function handleMove(e) {
@@ -310,11 +280,17 @@ function initAdvancedMarquee() {
                 if (isMobileDevice && Math.abs(velocity) > 0.5) {
                     marqueeIn.style.transition = 'none';
                 }
+                
+                // Debug every 50px movement
+                if (Math.abs(deltaX) % 50 < 5) {
+                    console.log(`🏃 Marquee ${index + 1} dragging: ${deltaX}px | Position: ${currentPosition}px`);
+                }
             } else if (Math.abs(deltaY) > dragThreshold && !isMobileDevice) {
                 // Allow vertical scrolling of the page (less strict on mobile)
                 isDragging = false;
                 isUserScrolling = false;
                 marqueeIn.style.cursor = 'grab';
+                console.log(`⬆️ Marquee ${index + 1} switching to vertical scroll`);
             }
         }
         
@@ -353,13 +329,13 @@ function initAdvancedMarquee() {
                 console.log('Marquee', index + 1, 'position maintained at:', currentPosition);
             }
             
-            // Resume auto-scroll after delay (longer on mobile)
+            // Resume CSS animation after delay (longer on mobile)
             const resumeDelay = isMobileDevice ? 3000 : 2000;
             userScrollTimeout = setTimeout(() => {
                 if (!isHovering && !isDragging) {
-                    isUserScrolling = false;
                     marqueeIn.style.transition = '';
-                    console.log('Marquee', index + 1, 'auto-scroll resumed from position:', currentPosition);
+                    marquee.style.animationPlayState = 'running';
+                    console.log(`▶️ Marquee ${index + 1} CSS animation resumed from position:`, currentPosition);
                 }
             }, resumeDelay);
         }
@@ -380,13 +356,17 @@ function initAdvancedMarquee() {
         let hoverTimeout;
         let isHovering = false;
         
+        // Enhanced hover interactions for gallery items
+        const videoContainers = container.querySelectorAll('.video-container-six, .marq-in_div');
+        
         container.addEventListener('mouseenter', (e) => {
             isHovering = true;
             clearTimeout(hoverTimeout);
             clearTimeout(userScrollTimeout);
             if (!isDragging) {
-                isUserScrolling = true;
-                console.log('Marquee', index + 1, 'paused on hover');
+                // Pause CSS animation
+                marquee.style.animationPlayState = 'paused';
+                console.log(`🎯 Marquee ${index + 1} paused on hover`);
             }
         });
         
@@ -394,17 +374,37 @@ function initAdvancedMarquee() {
             isHovering = false;
             clearTimeout(hoverTimeout);
             if (!isDragging) {
-                // Resume auto-scroll after a short delay
+                // Resume CSS animation after a short delay
                 hoverTimeout = setTimeout(() => {
                     if (!isHovering && !isDragging) {
-                        isUserScrolling = false;
-                        console.log('Marquee', index + 1, 'resumed after hover');
+                        marquee.style.animationPlayState = 'running';
+                        console.log(`▶️ Marquee ${index + 1} resumed after hover`);
                     }
                 }, 300);
             }
         });
         
-        // Additional hover pause for individual marquee items
+        // Enhanced hover effects for individual items
+        videoContainers.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                console.log(`🎯 Item hover - pausing marquee ${index + 1}`);
+                marquee.style.animationPlayState = 'paused';
+                clearTimeout(hoverTimeout);
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                if (!isHovering && !isDragging) {
+                    hoverTimeout = setTimeout(() => {
+                        if (!isHovering && !isDragging) {
+                            marquee.style.animationPlayState = 'running';
+                            console.log(`▶️ Item unhover - resuming marquee ${index + 1}`);
+                        }
+                    }, 300);
+                }
+            });
+        });
+        
+        // Additional hover pause for individual marquee items (integrated with CSS animation)
         items.forEach((item, itemIndex) => {
             item.addEventListener('mouseenter', (e) => {
                 e.stopPropagation();
@@ -412,8 +412,8 @@ function initAdvancedMarquee() {
                 clearTimeout(hoverTimeout);
                 clearTimeout(userScrollTimeout);
                 if (!isDragging) {
-                    isUserScrolling = true;
-                    console.log('Marquee', index + 1, 'item', itemIndex, 'hovered');
+                    marquee.style.animationPlayState = 'paused';
+                    console.log(`🎯 Marquee ${index + 1} item ${itemIndex} hovered - paused`);
                 }
             });
             
@@ -424,8 +424,8 @@ function initAdvancedMarquee() {
                     if (!isDragging) {
                         hoverTimeout = setTimeout(() => {
                             if (!isHovering && !isDragging) {
-                                isUserScrolling = false;
-                                console.log('Marquee', index + 1, 'resumed after item hover');
+                                marquee.style.animationPlayState = 'running';
+                                console.log(`▶️ Marquee ${index + 1} resumed after item ${itemIndex} hover`);
                             }
                         }, 300);
                     }
@@ -433,14 +433,16 @@ function initAdvancedMarquee() {
             });
         });
         
-        // Start auto-scroll for this marquee
-        animationId = requestAnimationFrame(autoScroll);
+        // Activate CSS animation instead of JavaScript auto-scroll
+        marquee.classList.add('active');
         
         // Set initial cursor
         marqueeIn.style.cursor = 'grab';
         
-        console.log('Marquee', index + 1, 'initialized successfully');
+        console.log(`🎉 Marquee ${index + 1} initialized successfully! CSS animation activated.`);
     });
+    
+    console.log(`🚀 Advanced Marquee System initialization complete! ${marqueeContainers.length} galleries ready.`);
 }
 
 /* 3. CONTACT PAGE SCRIPTS
@@ -611,17 +613,6 @@ documentReady(function() {
             element.classList.add('mobile-optimized');
         });
     }
-    
-    // Universal marquee initialization (fallback)
-    setTimeout(() => {
-        const marqueeContainers = document.querySelectorAll('.berflow._2');
-        if (marqueeContainers.length > 0) {
-            console.log('Fallback: Initializing marquee system for', marqueeContainers.length, 'containers');
-            initAdvancedMarquee();
-        } else {
-            console.log('No marquee containers found in fallback check');
-        }
-    }, 500);
 });
 
 // Error handling for missing dependencies
