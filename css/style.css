@@ -4441,6 +4441,13 @@ img[src$=".gif"] {
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-tap-highlight-color: transparent;
+    /* Enhanced mobile touch handling */
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
 }
 
 /* Smooth transition for momentum scrolling */
@@ -4508,6 +4515,16 @@ img[src$=".gif"] {
     .marq-in_div {
         touch-action: none;
         -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        cursor: grab;
+    }
+    
+    .marq-in_div:active,
+    .marq-in.dragging .marq-in_div {
+        cursor: grabbing;
+        -webkit-user-select: none;
+        user-select: none;
     }
     
     /* Enhanced scroll-to-top for mobile */

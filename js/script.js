@@ -224,10 +224,19 @@ function initAdvancedMarquee() {
         let velocity = 0;
         
         function handleStart(e) {
-            console.log(`🖱️ Drag start on marquee ${index + 1}:`, e.type, 'Mobile:', isMobileDevice);
+            // Enhanced mobile debugging
+            const isTouchEvent = e.type.includes('touch');
+            console.log(`🖱️ Drag start on marquee ${index + 1}:`, e.type, 'Mobile:', isMobileDevice, 'Touch Event:', isTouchEvent);
+            console.log('Event details:', {
+                type: e.type,
+                target: e.target.tagName,
+                touches: isTouchEvent ? e.touches.length : 'N/A',
+                screenX: isTouchEvent ? e.touches[0].screenX : e.screenX,
+                screenY: isTouchEvent ? e.touches[0].screenY : e.screenY
+            });
             
-            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            const clientX = isTouchEvent ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouchEvent ? e.touches[0].clientY : e.clientY;
             
             startX = clientX;
             startY = clientY;
@@ -250,21 +259,26 @@ function initAdvancedMarquee() {
             marqueeIn.style.userSelect = 'none';
             marqueeIn.classList.add('dragging');
             
-            // Always prevent default on touch to ensure proper drag handling
-            if (e.type === 'touchstart') {
+            // Enhanced touch event handling
+            if (isTouchEvent) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log(`📱 Touch event prevented for marquee ${index + 1}`);
+                // Disable text selection on mobile
+                document.body.style.userSelect = 'none';
+                document.body.style.webkitUserSelect = 'none';
+                document.body.style.webkitTouchCallout = 'none';
+                console.log(`📱 Touch event prevented for marquee ${index + 1} - coordinates: ${clientX}, ${clientY}`);
             }
             
-            console.log(`✅ Marquee ${index + 1} drag started - ${isMobileDevice ? 'Mobile' : 'Desktop'} | Position: ${currentPosition} | Touch coords: ${clientX}, ${clientY}`);
+            console.log(`✅ Marquee ${index + 1} drag started - ${isMobileDevice ? 'Mobile' : 'Desktop'} | Position: ${currentPosition} | Coords: ${clientX}, ${clientY}`);
         }
         
         function handleMove(e) {
             if (!isDragging) return;
             
-            const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+            const isTouchEvent = e.type.includes('touch');
+            const clientX = isTouchEvent ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouchEvent ? e.touches[0].clientY : e.clientY;
             const deltaX = clientX - startX;
             const deltaY = clientY - startY;
             const currentTime = Date.now();
@@ -282,6 +296,7 @@ function initAdvancedMarquee() {
                 // On mobile, be more permissive for horizontal drags
                 if (isMobileDevice && Math.abs(deltaX) > dragThreshold / 2) {
                     isHorizontalDrag = true;
+                    console.log(`📱 Marquee ${index + 1} detected horizontal drag on mobile: ${deltaX}px`);
                 }
             }
             
@@ -298,9 +313,10 @@ function initAdvancedMarquee() {
                     marqueeIn.style.transition = 'none';
                 }
                 
-                // Debug every 50px movement
-                if (Math.abs(deltaX) % 50 < 5) {
-                    console.log(`🏃 Marquee ${index + 1} dragging: ${deltaX}px | Position: ${currentPosition}px`);
+                // More frequent debug for mobile
+                const debugFrequency = isMobileDevice ? 20 : 50;
+                if (Math.abs(deltaX) % debugFrequency < 5) {
+                    console.log(`🏃 Marquee ${index + 1} dragging: ${deltaX}px | Position: ${currentPosition}px | Velocity: ${velocity.toFixed(3)}`);
                 }
             } else if (Math.abs(deltaY) > dragThreshold && !isMobileDevice) {
                 // Allow vertical scrolling of the page (less strict on mobile)
@@ -314,7 +330,8 @@ function initAdvancedMarquee() {
         function handleEnd(e) {
             if (!isDragging) return;
             
-            console.log(`🖱️ Drag end on marquee ${index + 1}:`, e.type, 'Mobile:', isMobileDevice);
+            const isTouchEvent = e.type.includes('touch');
+            console.log(`🖱️ Drag end on marquee ${index + 1}:`, e.type, 'Mobile:', isMobileDevice, 'Touch Event:', isTouchEvent);
             
             isDragging = false;
             const wasHorizontalDrag = isHorizontalDrag;
@@ -325,6 +342,13 @@ function initAdvancedMarquee() {
                 marqueeIn.style.cursor = 'grab';
             }
             marqueeIn.classList.remove('dragging');
+            
+            // Re-enable text selection on mobile
+            if (isTouchEvent) {
+                document.body.style.userSelect = '';
+                document.body.style.webkitUserSelect = '';
+                document.body.style.webkitTouchCallout = '';
+            }
             
             // Only process if we had a horizontal drag
             if (wasHorizontalDrag) {
@@ -372,6 +396,25 @@ function initAdvancedMarquee() {
         container.addEventListener('touchmove', handleMove, {passive: false});
         container.addEventListener('touchend', handleEnd, {passive: false});
         container.addEventListener('touchcancel', handleEnd, {passive: false});
+        
+        // Additional direct touch event handling on marquee-in for better mobile support
+        marqueeIn.addEventListener('touchstart', (e) => {
+            console.log(`📱 Direct touch on marquee-in ${index + 1}`, {
+                target: e.target.tagName,
+                touches: e.touches.length,
+                clientX: e.touches[0].clientX,
+                clientY: e.touches[0].clientY
+            });
+            handleStart(e);
+        }, {passive: false});
+        
+        marqueeIn.addEventListener('touchmove', (e) => {
+            handleMove(e);
+        }, {passive: false});
+        
+        marqueeIn.addEventListener('touchend', (e) => {
+            handleEnd(e);
+        }, {passive: false});
         
         // Additional mobile touch activation for embedded videos
         const videoElements = container.querySelectorAll('iframe, video');
@@ -469,6 +512,15 @@ function initAdvancedMarquee() {
         
         // Set initial cursor
         marqueeIn.style.cursor = 'grab';
+        
+        // Final mobile debug
+        if (isMobileDevice) {
+            console.log(`📱 Mobile marquee ${index + 1} ready - Testing touch events...`);
+            // Test touch event listener attachment
+            setTimeout(() => {
+                console.log(`📱 Marquee ${index + 1} touch test: Container events attached`);
+            }, 100);
+        }
         
         console.log(`🎉 Marquee ${index + 1} initialized successfully! CSS animation activated. Mobile: ${isMobileDevice}`);
     });
