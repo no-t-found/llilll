@@ -359,30 +359,47 @@ html.w-mod-touch * {
 
 /* Custom Fonts with Browser Fallbacks */
 
-/* Neue Machina Font Family - Enhanced with better fallbacks */
+/* Neue Machina Font Family - Original with reliable sources */
+
+/* Neue Machina Regular */
 @font-face {
-    font-family: 'Neue Machina';
-    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff2") format("woff2"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff") format("woff"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.otf") format("opentype"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.ttf") format("truetype");
+    font-family: "Neue Machina";
     font-weight: 400;
     font-style: normal;
+    src: url("https://db.onlinewebfonts.com/t/82b778d1b069157bf6b2e32dc4e1e3f1.eot");
+    src: local('Neue Machina Regular'),
+         local('NeueMachina-Regular'),
+         url("https://db.onlinewebfonts.com/t/82b778d1b069157bf6b2e32dc4e1e3f1.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/82b778d1b069157bf6b2e32dc4e1e3f1.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/82b778d1b069157bf6b2e32dc4e1e3f1.woff") format("woff"),
+         url("assets/fonts/NeueMachina-Regular.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/82b778d1b069157bf6b2e32dc4e1e3f1.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/82b778d1b069157bf6b2e32dc4e1e3f1.svg#Neue Machina") format("svg");
     font-display: swap;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+/* Neue Machina Bold/Ultrabold - using correct hash */
 @font-face {
-    font-family: 'Neue Machina';
-    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff2") format("woff2"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff") format("woff"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.otf") format("opentype"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.ttf") format("truetype");
+    font-family: "Neue Machina";
     font-weight: 700;
     font-style: normal;
+    src: url("https://db.onlinewebfonts.com/t/1d7e20364d1ec722b206ea329d44fbbd.eot");
+    src: local('Neue Machina Bold'),
+         local('NeueMachina-Bold'),
+         local('Neue Machina Ultrabold'),
+         local('NeueMachina-Ultrabold'),
+         url("https://db.onlinewebfonts.com/t/1d7e20364d1ec722b206ea329d44fbbd.eot?#iefix") format("embedded-opentype"),
+         url("https://db.onlinewebfonts.com/t/1d7e20364d1ec722b206ea329d44fbbd.woff2") format("woff2"),
+         url("https://db.onlinewebfonts.com/t/1d7e20364d1ec722b206ea329d44fbbd.woff") format("woff"),
+         url("assets/fonts/NeueMachina-Regular.woff") format("woff"),
+         url("https://db.onlinewebfonts.com/t/1d7e20364d1ec722b206ea329d44fbbd.ttf") format("truetype"),
+         url("https://db.onlinewebfonts.com/t/1d7e20364d1ec722b206ea329d44fbbd.svg#Neue Machina Ultrabold") format("svg");
     font-display: swap;
     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/* Removed broken Cargo URLs - using Space Grotesk as fallback above */
 
 @font-face {
     font-family: 'Neue Machina';
@@ -4418,7 +4435,7 @@ img[src$=".gif"] {
 
 .marq-in {
     transition: transform 0.3s ease-out;
-    touch-action: pan-y;
+    touch-action: none;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -4489,7 +4506,7 @@ img[src$=".gif"] {
 @media screen and (max-width: 768px) {
     /* Improved touch targets for mobile */
     .marq-in_div {
-        touch-action: pan-y;
+        touch-action: none;
         -webkit-touch-callout: none;
     }
     

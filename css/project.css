@@ -2,42 +2,12 @@
    PROJECT SHOWCASE PAGE STYLES - CLEANED
    ================================================================ */
 
-/* Font Definitions with Browser Fallbacks */
-@font-face {
-    font-family: "Neue Machina";
-    font-weight: 400;
-    font-style: normal;
-    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff2") format("woff2"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.woff") format("woff"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.otf") format("opentype"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Regular.ttf") format("truetype");
-    font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: "Neue Machina";
-    font-weight: 700;
-    font-style: normal;
-    src: url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff2") format("woff2"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.woff") format("woff"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.otf") format("opentype"),
-         url("https://freight.cargo.site/m/V2388534672314205358609960075859/NeueMachina-Ultrabold.ttf") format("truetype");
-    font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-    font-family: "Neue Machina";
-    font-weight: 900;
-    font-style: normal;
-    src: url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.woff2") format("woff2"),
-         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.woff") format("woff"),
-         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.otf") format("opentype"),
-         url("https://freight.cargo.site/m/E2388534823245465369701511397971/NeueMachina-Black.ttf") format("truetype");
-    font-display: swap;
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+/* Font Definitions Inherited from style.css to prevent conflicts */
+/* 
+   Note: Neue Machina font-face declarations are now handled in style.css
+   to prevent duplicate declarations and browser conflicts when both
+   stylesheets are loaded on the same page.
+*/
 
 /* Base CSS Reset */
 * {

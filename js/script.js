@@ -224,7 +224,7 @@ function initAdvancedMarquee() {
         let velocity = 0;
         
         function handleStart(e) {
-            console.log(`🖱️ Drag start on marquee ${index + 1}:`, e.type);
+            console.log(`🖱️ Drag start on marquee ${index + 1}:`, e.type, 'Mobile:', isMobileDevice);
             
             const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
@@ -248,13 +248,16 @@ function initAdvancedMarquee() {
                 marqueeIn.style.cursor = 'grabbing';
             }
             marqueeIn.style.userSelect = 'none';
+            marqueeIn.classList.add('dragging');
             
-            // Prevent context menu on long press for mobile
+            // Always prevent default on touch to ensure proper drag handling
             if (e.type === 'touchstart') {
                 e.preventDefault();
+                e.stopPropagation();
+                console.log(`📱 Touch event prevented for marquee ${index + 1}`);
             }
             
-            console.log(`✅ Marquee ${index + 1} drag started - ${isMobileDevice ? 'Mobile' : 'Desktop'} | Position: ${currentPosition}`);
+            console.log(`✅ Marquee ${index + 1} drag started - ${isMobileDevice ? 'Mobile' : 'Desktop'} | Position: ${currentPosition} | Touch coords: ${clientX}, ${clientY}`);
         }
         
         function handleMove(e) {
@@ -311,13 +314,17 @@ function initAdvancedMarquee() {
         function handleEnd(e) {
             if (!isDragging) return;
             
+            console.log(`🖱️ Drag end on marquee ${index + 1}:`, e.type, 'Mobile:', isMobileDevice);
+            
             isDragging = false;
             const wasHorizontalDrag = isHorizontalDrag;
             isHorizontalDrag = false;
             
+            // Remove drag styles
             if (!isMobileDevice) {
                 marqueeIn.style.cursor = 'grab';
             }
+            marqueeIn.classList.remove('dragging');
             
             // Only process if we had a horizontal drag
             if (wasHorizontalDrag) {
@@ -326,7 +333,7 @@ function initAdvancedMarquee() {
                     // Apply momentum based on velocity (improved for mobile)
                     const momentumDistance = velocity * 250; // Slightly reduced for more control
                     currentPosition += momentumDistance;
-                    console.log('Marquee', index + 1, 'momentum applied:', momentumDistance);
+                    console.log(`📱 Marquee ${index + 1} momentum applied:`, momentumDistance, 'Final position:', currentPosition);
                 }
                 
                 // Don't snap to nearest item - keep current position
@@ -340,7 +347,7 @@ function initAdvancedMarquee() {
                 // Apply the final position without snapping
                 marqueeIn.style.transform = `translateX(${currentPosition}px)`;
                 
-                console.log('Marquee', index + 1, 'position maintained at:', currentPosition);
+                console.log(`✅ Marquee ${index + 1} position maintained at:`, currentPosition);
             }
             
             // Resume CSS animation after delay (longer on mobile)
