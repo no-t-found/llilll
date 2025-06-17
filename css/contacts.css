@@ -15,6 +15,52 @@
 
    ================================================================ */
 
+/* EMERGENCY MOBILE FALLBACK - DESKTOP HIDDEN */
+.mobile-fallback-contact {
+    display: none !important;
+}
+
+@media screen and (max-width: 600px) {
+    .mobile-fallback-contact {
+        display: block !important;
+        position: relative !important;
+        z-index: 999999 !important;
+        background: yellow !important;
+        padding: 20px !important;
+        margin: 20px !important;
+        color: black !important;
+        font-size: 24px !important;
+        font-family: Arial, sans-serif !important;
+        text-align: center !important;
+        border: 3px solid red !important;
+    }
+}
+
+/* EMERGENCY WHITE BACKGROUND OVERRIDE - MOBILE FIRST */
+@media screen and (max-width: 992px) {
+    html, html.loaded, html.startloaded, html.gotopage,
+    body, body.cont-body, body.body, .body.cont-body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    html, html.loaded, html.startloaded, html.gotopage,
+    body, body.cont-body, body.body, .body.cont-body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    html, html.loaded, html.startloaded, html.gotopage,
+    body, body.cont-body, body.body, .body.cont-body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+    }
+}
+
 /* 1. FONT DEFINITIONS
    ================== */
 
@@ -45,9 +91,62 @@
 /* 2. BASE STYLES & BACKGROUND
    =========================== */
 
+/* FORCE RED TEXT VISIBILITY - EMERGENCY OVERRIDE */
+.contact-glass-container .div-block-10 .paragraph,
+.contact-glass-container .div-block-10 .link,
+.cont-page .div-block-10 .paragraph,
+.cont-page .div-block-10 .link,
+.div-block-10 .paragraph,
+.div-block-10 .link,
+.paragraph,
+.link {
+    color: #ff0000 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    z-index: 999 !important;
+}
+
+.contact-glass-container .div-block-10 .link,
+.cont-page .div-block-10 .link,
+.div-block-10 .link,
+.link {
+    display: inline-block !important;
+}
+
+/* FORCE WHITE BACKGROUND - CONTACTS PAGE OVERRIDE */
+html.loaded body.cont-body,
+html body.cont-body,
+body.cont-body,
+.cont-body,
+.body.cont-body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/* UNIVERSAL WHITE BACKGROUND ENFORCEMENT */
+html,
+html.loaded,
+html.startloaded,
+html.gotopage {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/* FORCE WHITE ON MAIN CONTAINERS */
+.app,
+.wrapper,
+.barba-container,
+.cont-page,
+.cont-container {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
 /* White background for contacts page */
 body {
     background: #ffffff !important;
+    background-color: #ffffff !important;
     display: flex !important;
     flex-direction: column !important;
     min-height: 100vh !important;
@@ -230,279 +329,268 @@ body:hover::after {
 
 /* Mobile responsive navigation - Improved with glass morphism */
 @media screen and (max-width: 768px) {
-    /* Force white background on main containers */
-    html,
-    body {
+    /* Force white background on mobile */
+    html, body {
         background: #ffffff !important;
         background-color: #ffffff !important;
     }
     
-    .app,
-    .wrapper,
-    .barba-container,
-    .cont-page,
-    .cont-container {
-        background: transparent !important;
-        background-color: transparent !important;
-    }
-    
-    /* Mobile full-width adjustments */
-    .contact-glass-container {
-        padding: 40px 4%;
-        margin: 10vh auto 0;
-        width: 92%;
-        max-width: 100%;
-        border-radius: 0;
-    }
-    
-    .contact-glass-container .div-block-10 .paragraph {
-        margin: 15px 0 !important;
-        font-size: clamp(28px, 6vw, 45px) !important;
-        line-height: 1.2 !important;
-    }
-    
-    /* Ensure body background stays white */
-    body {
-        background: #ffffff !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
-        min-height: 100vh !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .header {
-        width: 100% !important;
-        padding: 0 !important;
-        background: transparent !important;
-    }
-    
-    .navbar {
-        width: 100% !important;
-        padding: 15px 15px !important;
-        justify-content: center !important;
-        background: transparent !important;
-    }
-    
-    .nav-menu {
-        width: calc(100vw - 30px) !important;
-        justify-content: space-between !important;
-        gap: 0 !important;
-        max-width: 100% !important;
-    }
-    
-    /* Navigation styles moved to nav.css */
-    
-    /* Hide contact header completely on mobile */
-    .top-head-block {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        height: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* FORCE ALL PARENT CONTAINERS TO BE VISIBLE */
+    /* Main app container adjustments */
     .app {
+        min-height: calc(100vh - 60px) !important;
+        padding: 20px 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+    }
+    
+    /* Glass morphism container for mobile */
+    .contact-glass-container {
+        position: relative !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 0, 0, 0.1) !important;
+        border-radius: 24px !important;
+        padding: 3rem 1.5rem !important;
+        width: 90% !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.1),
+            0 4px 16px rgba(255, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    /* Glass morphism inner glow */
+    .contact-glass-container::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 50%, rgba(255, 0, 0, 0.03) 100%) !important;
+        border-radius: 24px !important;
+        pointer-events: none !important;
+        z-index: 1 !important;
+    }
+    
+    /* Contact container inside glass morphism - improved spacing */
+    .contact-glass-container .div-block-10,
+    .cont-page .div-block-10 {
+        position: relative !important;
+        z-index: 2 !important;
+        background: transparent !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important;
         align-items: center !important;
-        width: 100% !important;
-        flex-grow: 1 !important;
-        padding: 60px 20px !important;
-        order: 2 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    
-    .wrapper {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 100% !important;
-    }
-    
-    .barba-container {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 100% !important;
-    }
-    
-    .cont-page {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 100% !important;
-    }
-    
-    .cont-container {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 100% !important;
-    }
-    
-    /* CONTACT CONTAINER WITH FULL PATH */
-    .app .wrapper .barba-container.cont-page .cont-container .div-block-10,
-    .div-block-10 {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        width: 100% !important;
-        max-width: 90vw !important;
-        padding: 0 !important;
-        margin: 0 auto !important;
+        justify-content: center !important;
         text-align: center !important;
-        background: transparent !important;
-        position: relative !important;
-        z-index: 100 !important;
+        gap: 20px !important;
     }
     
-    /* CONTACT TEXT WITH FULL PATH - Enhanced for glass container with red text */
-    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 .paragraph,
-    .div-block-10 p,
-    .div-block-10 .paragraph {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+    /* Contact text sizing - red text on glass background */
+    .contact-glass-container .div-block-10 .paragraph,
+    .cont-page .div-block-10 .paragraph {
         color: #ff0000 !important;
-        font-size: 36px !important;
-        line-height: 1.2 !important;
-        margin: 8px 0 !important;
+        font-size: 42px !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+        margin-bottom: 15px !important;
         text-align: center !important;
+        width: 100% !important;
+        word-break: break-word !important;
         font-family: 'PP Editorial Old', serif !important;
         font-weight: 400 !important;
-        background: transparent !important;
-        text-shadow: 0 1px 2px rgba(255, 0, 0, 0.1) !important;
     }
     
-    /* CONTACT LINKS WITH FULL PATH - Enhanced with red text */
-    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 .link,
-    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 a,
-    .div-block-10 a,
-    .div-block-10 .link {
-        display: inline !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+    .contact-glass-container .div-block-10 .link,
+    .cont-page .div-block-10 .link {
         color: #ff0000 !important;
-        font-size: 36px !important;
-        line-height: 1.2 !important;
+        font-size: 42px !important;
+        line-height: 1.1 !important;
+        text-align: center !important;
+        width: 100% !important;
+        transition: all 0.3s ease !important;
         text-decoration: none !important;
         font-family: 'PP Editorial Old', serif !important;
         font-weight: 400 !important;
-        background: transparent !important;
-        border-bottom: 2px solid transparent !important;
-        transition: all 0.3s ease !important;
-        text-shadow: 0 1px 2px rgba(255, 0, 0, 0.1) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline !important;
+        z-index: 999 !important;
     }
     
-    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 .link:hover,
-    .app .wrapper .barba-container.cont-page .cont-container .div-block-10 a:hover,
-    .div-block-10 a:hover,
-    .div-block-10 .link:hover {
+    /* Email paragraph - special spacing for long email */
+    .contact-glass-container .div-block-10 .paragraph:first-child,
+    .cont-page .div-block-10 .paragraph:first-child {
+        margin-bottom: 25px !important;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph:first-child .link,
+    .cont-page .div-block-10 .paragraph:first-child .link {
+        font-size: 38px !important;
+        word-break: break-all !important;
+        line-height: 1.0 !important;
+    }
+    
+    /* Social links paragraph - better spacing */
+    .contact-glass-container .div-block-10 .paragraph:nth-child(2),
+    .cont-page .div-block-10 .paragraph:nth-child(2) {
+        margin-bottom: 15px !important;
+    }
+    
+    /* LinkedIn paragraph */
+    .contact-glass-container .div-block-10 .paragraph:nth-child(3),
+    .cont-page .div-block-10 .paragraph:nth-child(3) {
+        margin-bottom: 0 !important;
+    }
+    
+    /* Mobile-only animations - FIXED: Ensure text is visible immediately */
+    .contact-glass-container .div-block-10 .paragraph,
+    .cont-page .div-block-10 .paragraph {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        transform: translateY(0) !important;
+        animation: slideInUp 0.8s ease-out forwards !important;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph:nth-child(1),
+    .cont-page .div-block-10 .paragraph:nth-child(1) {
+        animation-delay: 0.2s !important;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph:nth-child(2),
+    .cont-page .div-block-10 .paragraph:nth-child(2) {
+        animation-delay: 0.4s !important;
+    }
+    
+    .contact-glass-container .div-block-10 .paragraph:nth-child(3),
+    .cont-page .div-block-10 .paragraph:nth-child(3) {
+        animation-delay: 0.6s !important;
+    }
+    
+    /* Hover effects for glass morphism */
+    .contact-glass-container .div-block-10 .link:hover,
+    .contact-glass-container .div-block-10 .link:active,
+    .cont-page .div-block-10 .link:hover,
+    .cont-page .div-block-10 .link:active {
         color: #cc0000 !important;
-        border-bottom-color: #cc0000 !important;
-        text-shadow: 0 2px 12px rgba(255, 0, 0, 0.4) !important;
-        transform: translateY(-2px) !important;
+        transform: scale(1.05) !important;
     }
     
-    /* LOCATION TEXT WITH FULL PATH */
-    .app .wrapper .barba-container.cont-page .cont-container .location-footer,
+    /* Glass morphism hover effect */
+    .contact-glass-container:hover {
+        transform: translateY(-4px) scale(1.01) !important;
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.15),
+            0 12px 24px rgba(255, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+        border-color: rgba(255, 0, 0, 0.15) !important;
+    }
+    
+    /* Location footer - better separation */
     .location-footer {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+        margin-top: 80px !important;
+        margin-bottom: 40px !important;
+    }
+    
+    /* MOBILE TEXT VISIBILITY AND SPACING */
+    .contact-glass-container {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        min-height: 60vh !important;
+        margin: 0 auto !important;
+    }
+    
+    .contact-glass-container .div-block-10 {
         text-align: center !important;
-        margin: 40px 0 !important;
         width: 100% !important;
+        max-width: 90% !important;
+        margin: 0 auto !important;
     }
     
-    .app .wrapper .barba-container.cont-page .cont-container .location-text,
-    .location-text {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
+    .contact-glass-container .div-block-10 .paragraph,
+    .cont-page .paragraph,
+    .cont-body .paragraph {
         color: #ff0000 !important;
-        font-family: 'Neue Montreal Regular', Arial, sans-serif !important;
-        font-size: 16px !important;
-        font-weight: 400 !important;
-        text-transform: uppercase !important;
-        margin: 0 !important;
-        background: transparent !important;
-        text-shadow: 0 1px 2px rgba(255, 0, 0, 0.1) !important;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .navbar {
-        padding: 12px 10px !important;
-    }
-    
-    .nav-menu {
-        width: calc(100vw - 20px) !important;
-    }
-    
-    /* Navigation styles moved to nav.css */
-    
-    /* Mobile compact adjustments */
-    .contact-glass-container {
-        padding: 30px 3%;
-        margin: 8vh auto 0;
-        width: 94%;
-        border-radius: 0;
-    }
-    
-    .contact-glass-container .div-block-10 .paragraph {
-        margin: 12px 0 !important;
-        font-size: clamp(24px, 7vw, 40px) !important;
-    }
-    
-    /* Smaller contact text */
-    .div-block-10 .paragraph,
-    .div-block-10 .link,
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
         font-size: 32px !important;
+        line-height: 1.2 !important;
+        margin: 0 0 25px 0 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        text-align: center !important;
+        font-family: 'PP Editorial Old', serif !important;
+        letter-spacing: 0 !important;
+        /* CRITICAL: Override the 36rem font-size from style.css */
+        font-size: 32px !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+    
+    .contact-glass-container .div-block-10 .link,
+    .cont-page .link,
+    .cont-body .link {
+        color: #ff0000 !important;
+        font-size: 32px !important;
+        line-height: 1.2 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline !important;
+        text-decoration: none !important;
+        font-family: 'PP Editorial Old', serif !important;
+        letter-spacing: 0 !important;
+        /* CRITICAL: Override any large rem values */
+        max-width: 100% !important;
+        overflow: visible !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* First paragraph (email) - larger spacing */
+    .contact-glass-container .div-block-10 .paragraph:first-child {
+        margin-bottom: 35px !important;
+    }
+    
+    /* Second paragraph (social links) */
+    .contact-glass-container .div-block-10 .paragraph:nth-child(2) {
+        margin-bottom: 30px !important;
+    }
+    
+    /* Third paragraph (linkedin) */
+    .contact-glass-container .div-block-10 .paragraph:nth-child(3) {
+        margin-bottom: 20px !important;
+    }
+    
+    /* Location footer */
+    .location-footer {
+        text-align: center !important;
+        margin-top: 50px !important;
+    }
+    
+    .location-text {
+        color: #ff0000 !important;
+        font-size: 18px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        text-align: center !important;
+        font-family: 'PP Editorial Old', serif !important;
     }
 }
 
-@media screen and (max-width: 360px) {
-    .navbar {
-        padding: 10px 8px !important;
-    }
-    
-    .nav-menu {
-        width: calc(100vw - 16px) !important;
-    }
-    
-    /* Navigation styles moved to nav.css */
-    
-    /* Extra small mobile adjustments */
-    .contact-glass-container {
-        padding: 25px 2%;
-        margin: 6vh auto 0;
-        width: 96%;
-        border-radius: 0;
-    }
-    
-    .contact-glass-container .div-block-10 .paragraph {
-        margin: 10px 0 !important;
-        font-size: clamp(22px, 8vw, 35px) !important;
-    }
-    
-    /* Extra small contact text */
-    .div-block-10 .paragraph,
-    .div-block-10 .link,
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
-        font-size: 28px !important;
-    }
-}
+/* Old 480px media query removed - replaced with comprehensive 479px version below */
+
+/* Old 360px media query removed - replaced with comprehensive 375px version below */
 
 /* 5. CURSOR & INTERACTION STYLES
    =============================== */
@@ -528,8 +616,8 @@ body:hover::after {
 @media screen and (max-width: 991px) {
     @keyframes slideInUp {
         from {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 1;
+            transform: translateY(20px);
         }
         to {
             opacity: 1;
@@ -654,27 +742,7 @@ canvas, .cccuu {
     color: #cc0000 !important;
 }
 
-@media screen and (max-width: 991px) {
-    .cont-page .div-block-10 {
-        padding: 1.5rem 0.5rem !important;
-    }
-    
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
-        font-size: 64px !important;
-    }
-}
-
-@media screen and (max-width: 479px) {
-    .cont-page .div-block-10 {
-        padding: 1rem 0.5rem !important;
-    }
-
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
-        font-size: 54px !important;
-    }
-}
+/* Old conflicting media queries removed - using comprehensive responsive design below */
 
 /* AGGRESSIVE OVERRIDE - Force layout to work */
 body.cont-body {
@@ -695,100 +763,133 @@ body.cont-body .app {
 }
 
 /* Enhanced Mobile Responsiveness */
-@media screen and (max-width: 991px) {
-    /* Navigation adjustments */
-    .header {
-        margin-bottom: 60px !important;
+/* Duplicate 991px media query removed - using comprehensive responsive design */
+
+/* Duplicate 768px media query removed - using comprehensive version above */
+
+@media screen and (max-width: 479px) {
+    /* Force white background on mobile */
+    html, body {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
     }
     
-    /* Main container adjustments */
-    .cont-page .div-block-10 {
-        padding: 2rem 1rem !important;
-        margin: 0 auto !important;
-        max-width: 1000px !important;
-        width: 100% !important;
+    /* Navigation */
+    .header {
+        margin-bottom: 30px !important;
+    }
+    
+    /* Main app container */
+    .app {
+        min-height: calc(100vh - 50px) !important;
+        padding: 15px 10px !important;
+        background: transparent !important;
+    }
+    
+    /* MOBILE LAYOUT - Show mobile version, hide desktop version */
+    .mobile-contact {
+        display: block !important;
         text-align: center !important;
+        font-size: clamp(28px, 7vw, 42px) !important; /* Scalable font size */
+        color: #ff0000 !important;
+        font-family: 'PP Editorial Old', serif !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+        padding: 40px 20px !important; /* Proper padding inside glass container */
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .mobile-contact .mobile-link {
+        color: #ff0000 !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease !important;
+    }
+    
+    .mobile-contact .mobile-link:hover {
+        color: #cc0000 !important;
+        text-decoration: underline !important;
+    }
+    
+    .desktop-contact {
+        display: none !important;
+    }
+    
+    /* Ensure glass morphism container works properly with mobile content */
+    .contact-glass-container {
         display: flex !important;
-        flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
+        min-height: 200px !important;
+        backdrop-filter: blur(20px) !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
     }
     
-    /* Contact links sizing */
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
-        font-size: 58px !important;
-        line-height: 1.2 !important;
-        margin-bottom: 16px !important;
-        text-align: center !important;
+    .contact-glass-container .div-block-10 {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 }
 
-@media screen and (max-width: 768px) {
-    /* Contact container - improved centering */
-    .cont-page .div-block-10 {
-        padding: 2rem 0.5rem !important;
-        width: 100% !important;
-        max-width: 800px !important;
-        margin: 0 auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        text-align: center !important;
+/* Desktop styles - 480px and up */
+@media screen and (min-width: 480px) {
+    /* DESKTOP LAYOUT - Show desktop version, hide mobile version */
+    .desktop-contact {
+        display: block !important;
     }
     
-    /* Contact text sizing - bigger and scalable with tight spacing */
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
-        font-size: 48px !important;
-        line-height: 1.1 !important;
-        margin-bottom: 8px !important;
-        text-align: center !important;
-        width: 100% !important;
-    }
-    
-    /* Mobile-only animations */
-    .cont-page .div-block-10 .paragraph {
-        animation: slideInUp 0.8s ease-out forwards !important;
-        opacity: 0 !important;
-        transform: translateY(30px) !important;
-    }
-    
-    .cont-page .div-block-10 .paragraph:nth-child(1) {
-        animation-delay: 0.2s !important;
-    }
-    
-    .cont-page .div-block-10 .paragraph:nth-child(2) {
-        animation-delay: 0.4s !important;
-    }
-    
-    .cont-page .div-block-10 .paragraph:nth-child(3) {
-        animation-delay: 0.6s !important;
-    }
-    
-    .cont-page .div-block-10 .link {
-        transition: all 0.3s ease !important;
-    }
-    
-    .cont-page .div-block-10 .link:hover,
-    .cont-page .div-block-10 .link:active {
-        transform: scale(1.05) !important;
-        color: #cc0000 !important;
+    .mobile-contact {
+        display: none !important;
     }
 }
 
 @media screen and (max-width: 479px) {
-    /* Navigation */
-    .header {
-        margin-bottom: 40px !important;
+    /* Glass morphism container for small mobile */
+    .contact-glass-container {
+        position: relative !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 0, 0, 0.1) !important;
+        border-radius: 20px !important;
+        padding: 2.5rem 1rem !important;
+        width: 92% !important;
+        max-width: 600px !important;
+        margin: 80px auto 0 !important;
+        box-shadow: 
+            0 6px 24px rgba(0, 0, 0, 0.1),
+            0 3px 12px rgba(255, 0, 0, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+        transition: all 0.3s ease !important;
     }
     
-    /* Main contact container - perfect centering */
+    /* Glass morphism inner glow for mobile */
+    .contact-glass-container::before {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%, rgba(255, 0, 0, 0.02) 100%) !important;
+        border-radius: 20px !important;
+        pointer-events: none !important;
+        z-index: 1 !important;
+    }
+    
+    /* Main contact container inside glass morphism - perfect centering */
+    .contact-glass-container .div-block-10,
     .cont-page .div-block-10 {
-        padding: 2rem 1rem !important;
+        position: relative !important;
+        z-index: 2 !important;
+        background: transparent !important;
+        padding: 0 !important;
         width: 100% !important;
-        max-width: 600px !important;
+        max-width: 100% !important;
         margin: 0 auto !important;
         text-align: center !important;
         box-sizing: border-box !important;
@@ -796,113 +897,165 @@ body.cont-body .app {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
+        gap: 0 !important;
         min-height: auto !important;
     }
     
-    /* Contact text - mobile optimized with no vertical spacing */
+    /* Contact text - mobile optimized with red text on glass background */
+    .contact-glass-container .div-block-10 .paragraph,
     .cont-page .div-block-10 .paragraph {
-        font-size: 40px !important;
+        color: #ff0000 !important;
+        font-size: 36px !important;
         line-height: 1.0 !important;
-        margin-bottom: 4px !important;
+        margin: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
         word-break: break-word !important;
         text-align: center !important;
         width: 100% !important;
         max-width: 100% !important;
         display: block !important;
+        font-family: 'PP Editorial Old', serif !important;
+        font-weight: 400 !important;
+        /* FIXED: Start visible, then animate */
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
         animation: slideInUp 0.8s ease-out forwards !important;
-        opacity: 0 !important;
-        transform: translateY(30px) !important;
     }
     
+    .contact-glass-container .div-block-10 .link,
     .cont-page .div-block-10 .link {
-        font-size: 40px !important;
-        line-height: 1.0 !important;
+        color: #ff0000 !important;
+        font-size: 36px !important;
+        line-height: 1.1 !important;
         word-break: break-word !important;
         display: inline-block !important;
         text-align: center !important;
+        text-decoration: none !important;
+        font-family: 'PP Editorial Old', serif !important;
+        font-weight: 400 !important;
         transition: all 0.3s ease !important;
     }
     
-    /* Email link - special handling for long email with minimal spacing */
+    /* Remove all spacing between paragraphs */
+    .contact-glass-container .div-block-10 .paragraph:first-child,
     .cont-page .div-block-10 .paragraph:first-child {
-        margin-bottom: 8px !important;
+        margin-bottom: 0 !important;
     }
     
+    .contact-glass-container .div-block-10 .paragraph:first-child .link,
     .cont-page .div-block-10 .paragraph:first-child .link {
-        font-size: 36px !important;
+        font-size: 32px !important;
         word-break: break-all !important;
         line-height: 1.0 !important;
     }
     
-    /* Social links container - tight spacing */
+    /* Social links container - proper spacing */
+    .contact-glass-container .div-block-10 .paragraph:not(:first-child),
     .cont-page .div-block-10 .paragraph:not(:first-child) {
         display: block !important;
         text-align: center !important;
         width: 100% !important;
-        margin-bottom: 4px !important;
+        margin-bottom: 10px !important;
     }
     
-    /* Individual social links - tight line height */
+    /* Individual social links - better spacing */
+    .contact-glass-container .div-block-10 .paragraph:not(:first-child) .link,
     .cont-page .div-block-10 .paragraph:not(:first-child) .link {
-        font-size: 38px !important;
-        margin: 0 8px !important;
+        font-size: 34px !important;
+        margin: 0 6px !important;
         display: inline-block !important;
-        line-height: 1.0 !important;
+        line-height: 1.1 !important;
     }
     
     /* Animation delays for staggered effect */
+    .contact-glass-container .div-block-10 .paragraph:nth-child(1),
     .cont-page .div-block-10 .paragraph:nth-child(1) {
         animation-delay: 0.2s !important;
     }
     
+    .contact-glass-container .div-block-10 .paragraph:nth-child(2),
     .cont-page .div-block-10 .paragraph:nth-child(2) {
         animation-delay: 0.4s !important;
     }
     
+    .contact-glass-container .div-block-10 .paragraph:nth-child(3),
     .cont-page .div-block-10 .paragraph:nth-child(3) {
         animation-delay: 0.6s !important;
     }
     
-    /* Hover/touch effects for mobile */
+    /* Hover/touch effects for mobile glass morphism */
+    .contact-glass-container .div-block-10 .link:hover,
+    .contact-glass-container .div-block-10 .link:active,
+    .contact-glass-container .div-block-10 .link:focus,
     .cont-page .div-block-10 .link:hover,
     .cont-page .div-block-10 .link:active,
     .cont-page .div-block-10 .link:focus {
-        transform: scale(1.08) !important;
         color: #cc0000 !important;
+        transform: scale(1.08) !important;
     }
     
-    /* Mobile-only location text animation with spacing from contact */
+    /* Glass morphism mobile hover effect */
+    .contact-glass-container:hover {
+        transform: translateY(-2px) scale(1.005) !important;
+        box-shadow: 
+            0 15px 30px rgba(0, 0, 0, 0.12),
+            0 8px 16px rgba(255, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+        border-color: rgba(255, 0, 0, 0.12) !important;
+    }
+    
+    /* Mobile-only location text animation with proper spacing from glass container */
     .location-footer {
         animation: fadeInUp 1s ease-out 0.8s forwards !important;
         opacity: 0 !important;
         transform: translateY(20px) !important;
         margin-top: 60px !important;
+        margin-bottom: 30px !important;
     }
 }
 
 /* Extra small mobile devices */
 @media screen and (max-width: 375px) {
-    .cont-page .div-block-10 {
-        width: 100vw !important;
-        padding: 1.5rem 0.5rem !important;
+    /* Glass morphism container for extra small phones */
+    .contact-glass-container {
+        width: 95% !important;
+        min-height: 140px !important;
+        border-radius: 18px !important;
+        margin: 15px auto !important;
     }
     
-    .cont-page .div-block-10 .paragraph,
-    .cont-page .div-block-10 .link {
-        font-size: 36px !important;
-    }
-    
-    .cont-page .div-block-10 .paragraph:first-child .link {
-        font-size: 32px !important;
-    }
-    
-    .cont-page .div-block-10 .paragraph:not(:first-child) .link {
-        font-size: 34px !important;
+    /* Mobile contact with scalable font */
+    .mobile-contact {
+        font-size: clamp(24px, 6vw, 32px) !important; /* Extra small scalable font */
+        padding: 25px 15px !important;
+        line-height: 1.2 !important;
     }
     
     .location-text {
-        font-size: 13px !important;
+        font-size: 12px !important;
         color: #ff0000 !important;
+    }
+    
+    .location-footer {
+        margin-top: 50px !important;
+        margin-bottom: 25px !important;
+    }
+}
+
+/* Medium mobile screens (376px to 479px) */
+@media screen and (min-width: 376px) and (max-width: 479px) {
+    .mobile-contact {
+        font-size: clamp(30px, 7.5vw, 40px) !important; /* Medium mobile scalable font */
+        padding: 35px 18px !important;
+    }
+    
+    .contact-glass-container {
+        min-height: 170px !important;
     }
 }
 
