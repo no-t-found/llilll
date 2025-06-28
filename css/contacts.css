@@ -840,10 +840,25 @@ body.cont-body .app {
     /* DESKTOP LAYOUT - Show desktop version, hide mobile version */
     .desktop-contact {
         display: block !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
     }
     
     .mobile-contact {
         display: none !important;
+    }
+    
+    /* Ensure desktop contact text is properly centered */
+    .desktop-contact .div-block-10 .paragraph {
+        text-align: center !important;
+        margin: 20px 0 !important;
+        width: 100% !important;
+    }
+    
+    .desktop-contact .div-block-10 .link {
+        text-align: center !important;
+        display: inline-block !important;
     }
 }
 
