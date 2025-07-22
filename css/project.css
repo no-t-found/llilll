@@ -94,11 +94,16 @@ body {
 }
 
 /* Hero Image - Full Width with flexible height that maintains aspect ratio */
+.hero-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 .hero-image {
-    width: calc(100vw - 40px);
+    width: 100%;
+    max-width: 100%;
     height: auto;
-    max-height: 70vh;
-    margin: 20px auto;
+    margin: 0;
     display: block;
     border-radius: 12px;
     object-fit: contain;
@@ -947,6 +952,73 @@ body {
         width: 18px;
         height: 18px;
     }
+}
+
+/* Behance Button Styles */
+.behance-btn-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin: 40px 0 12px 0;
+    padding-left: 0;
+}
+@media screen and (max-width: 991px) {
+    .behance-btn-wrapper {
+        padding-left: 0;
+        margin-left: 40px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .behance-btn-wrapper {
+        padding-left: 0;
+        margin-left: 28px;
+    }
+}
+
+.behance-btn {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #FF0000;
+    border: 2px solid #FF0000;
+    border-radius: 24px;
+    padding: 12px 32px;
+    font-family: 'Neue Machina', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    transition: background 0.4s cubic-bezier(.4,1.4,.6,1), color 0.2s, box-shadow 0.3s, transform 0.2s, backdrop-filter 0.4s;
+    will-change: background, box-shadow, transform, backdrop-filter;
+    z-index: 1;
+    backdrop-filter: none;
+}
+.behance-btn::before {
+    display: none;
+}
+.behance-btn span, .behance-btn .arrow-icon {
+    position: relative;
+    z-index: 1;
+    transition: color 0.2s;
+}
+.behance-btn:hover {
+    color: #fff;
+    background: linear-gradient(90deg, #ffb6b6 0%, #ff5a5a 100%);
+    box-shadow: 0 8px 32px rgba(255,0,0,0.10);
+    transform: scale(1.045) translateY(-2px);
+    backdrop-filter: blur(1.5px) brightness(1.04);
+}
+.behance-btn:hover span, .behance-btn:hover .arrow-icon {
+    color: #fff;
+}
+.behance-btn .arrow-icon {
+    transition: transform 0.3s cubic-bezier(.4,1.4,.6,1);
+}
+.behance-btn:hover .arrow-icon {
+    transform: translateX(12px) scale(1.15);
 }
 
 /* End of project.css */
