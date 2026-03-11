@@ -193,18 +193,347 @@ function initAdvancedMarquee() {
         let userScrollTimeout;
         let currentPosition = 0;
         
-        // Calculate item width including margins
-        const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(items[0]).marginRight);
+        // Wait for layout to be ready before calculating dimensions
+        // Calculate item width including margins - use the actual rendered width
+        let itemWidth = 0;
+        let containerWidth = 0;
+        
+        // Function to recalculate dimensions
+        function recalculateDimensions() {
+            // Get current items from DOM (after duplication)
+            const currentItems = marqueeIn.querySelectorAll('.marq-in_div');
+            if (currentItems.length > 0) {
+                // Use the first visible item
+                const firstItem = currentItems[0];
+                const itemStyle = window.getComputedStyle(firstItem);
+                const itemRect = firstItem.getBoundingClientRect();
+                // Calculate width including margins
+                const marginRight = parseFloat(itemStyle.marginRight) || 0;
+                const marginLeft = parseFloat(itemStyle.marginLeft) || 0;
+                itemWidth = itemRect.width + marginRight + marginLeft;
+                
+                // If itemWidth is still 0 or invalid, use a fallback
+                if (!itemWidth || itemWidth <= 0) {
+                    itemWidth = itemRect.width || 800; // Fallback to 800px if width is 0
+                }
+                
+                containerWidth = container.offsetWidth || window.innerWidth;
+            } else if (items.length > 0) {
+                // Fallback to original items if DOM items not found
+                const firstItem = items[0];
+                const itemStyle = window.getComputedStyle(firstItem);
+                itemWidth = firstItem.offsetWidth + parseFloat(itemStyle.marginRight) + parseFloat(itemStyle.marginLeft);
+                containerWidth = container.offsetWidth || window.innerWidth;
+            }
+        }
+        
+        // Initial calculation - wait a bit for layout
+        setTimeout(() => {
+            recalculateDimensions();
+            console.log(`📐 Gallery ${index + 1} - Initial calculation - Item width: ${itemWidth}px, Container width: ${containerWidth}px`);
+        }, 50);
+        
+        // Recalculate after a short delay to ensure layout is complete
+        setTimeout(() => {
+            recalculateDimensions();
+            console.log(`📐 Gallery ${index + 1} - Final calculation - Item width: ${itemWidth}px, Container width: ${containerWidth}px`);
+        }, 200);
+        
         const totalWidth = itemWidth * items.length;
-        const containerWidth = container.offsetWidth;
+        
+        // Store original item count (BEFORE duplication - this is critical!)
+        const originalItemCount = items.length;
+        console.log(`📊 Gallery ${index + 1} has ${originalItemCount} original items`);
+        
+        // Extract project names from items (in order as they appear)
+        const projectNames = items.map((item, idx) => {
+            // First, check for custom data attribute (easiest way to customize)
+            const customName = item.getAttribute('data-project-name');
+            if (customName) {
+                return customName;
+            }
+            
+            // Try to get name from link href
+            const link = item.querySelector('a');
+            if (link) {
+                const href = link.getAttribute('href');
+                if (href) {
+                    // Extract name from href (remove .html, #, or full URL)
+                    let name = href.split('/').pop().replace('.html', '').replace('#', '');
+                    // Handle special cases
+                    if (href.includes('behance.net')) {
+                        // Extract from Behance URL or use image alt/folder name
+                        const img = item.querySelector('img');
+                        if (img && img.src) {
+                            const srcParts = img.src.split('/');
+                            const folderName = srcParts[srcParts.length - 2];
+                            name = folderName.split('-').map(word => 
+                                word.charAt(0).toUpperCase() + word.slice(1)
+                            ).join(' ');
+                        } else {
+                            name = href.includes('Hostile-Architecture') ? 'Hostile Architecture' :
+                                   href.includes('Pictograms') ? 'Ooh Pictograms' : name;
+                        }
+                    } else {
+                        // Format the name nicely
+                        name = name.split('-').map(word => 
+                            word.charAt(0).toUpperCase() + word.slice(1)
+                        ).join(' ');
+                        // Handle special cases
+                        if (name.toLowerCase().includes('six')) name = 'SiX';
+                        if (name.toLowerCase().includes('politrack')) name = 'PoliTrack';
+                        if (name.toLowerCase().includes('your-thesis')) name = 'Your Thesis';
+                        if (name.toLowerCase().includes('yours-for-the-telling')) name = 'Yours for the Telling';
+                        if (name.toLowerCase().includes('century-of-child')) name = 'Century of Child';
+                        if (name.toLowerCase().includes('3-ficcoes')) name = '3 Ficções';
+                        if (name.toLowerCase().includes('ooh-pagination')) name = 'Ooh Pagination';
+                        if (name.toLowerCase().includes('luz-sombra')) name = 'Luz Sombra';
+                        if (name.toLowerCase().includes('capas-halloween')) name = 'Capas Halloween';
+                    }
+                    return name || `Project ${idx + 1}`;
+                }
+            }
+            // Fallback: try to get from image alt or folder name
+            const img = item.querySelector('img');
+            if (img) {
+                const alt = img.getAttribute('alt');
+                if (alt) return alt;
+                const src = img.src;
+                if (src) {
+                    const srcParts = src.split('/');
+                    const folderName = srcParts[srcParts.length - 2];
+                    return folderName.split('-').map(word => 
+                        word.charAt(0).toUpperCase() + word.slice(1)
+                    ).join(' ');
+                }
+            }
+            return `Project ${idx + 1}`;
+        });
+        
+        // Log the order for debugging
+        console.log(`📝 Project names for gallery ${index + 1} (in order):`, projectNames);
+        items.forEach((item, idx) => {
+            const link = item.querySelector('a');
+            const href = link ? link.getAttribute('href') : 'no link';
+            console.log(`  Item ${idx}: ${projectNames[idx]} (href: ${href})`);
+        });
+        
+        // Function to calculate initial offset (centers first item in viewport)
+        function calculateInitialOffset() {
+            recalculateDimensions();
+            // Use viewport center to center the first item
+            // The first item starts at position 0, so we need to shift it left
+            // to center it in the viewport
+            const viewportCenter = window.innerWidth / 2;
+            // We want the center of the first item to be at viewport center
+            // So: viewportCenter = itemLeft + (itemWidth / 2)
+            // Therefore: itemLeft = viewportCenter - (itemWidth / 2)
+            // Since items start at 0, we need: transform = viewportCenter - (itemWidth / 2)
+            return viewportCenter - (itemWidth / 2);
+        }
+        
+        // Start with first item centered
+        let initialOffset = calculateInitialOffset();
+        currentPosition = initialOffset;
+        
+        // Recalculate after layout is complete
+        setTimeout(() => {
+            recalculateDimensions();
+            initialOffset = calculateInitialOffset();
+            currentPosition = initialOffset;
+            if (marqueeIn) {
+                marqueeIn.style.transform = `translateX(${currentPosition}px)`;
+                console.log(`📍 Gallery ${index + 1} - Initial position set to: ${initialOffset.toFixed(0)}px`);
+            }
+        }, 300);
         
         // Duplicate items for seamless loop
         const originalHTML = marqueeIn.innerHTML;
         marqueeIn.innerHTML = originalHTML + originalHTML;
         
-        // Start with first item centered
-        const initialOffset = (containerWidth / 2) - (itemWidth / 2);
-        currentPosition = initialOffset;
+        // Recalculate after duplication (items are now doubled)
+        const allItems = Array.from(marqueeIn.querySelectorAll('.marq-in_div'));
+        
+        // Function to get current transform position
+        function getCurrentTransform() {
+            const transform = window.getComputedStyle(marqueeIn).transform;
+            if (transform && transform !== 'none') {
+                const matrix = transform.match(/matrix\(([^)]+)\)/);
+                if (matrix) {
+                    const values = matrix[1].split(',');
+                    return parseFloat(values[4]) || 0;
+                }
+            }
+            return currentPosition;
+        }
+        
+        // Function to update active indicator dot
+        function updateActiveIndicator() {
+            // Find indicator container
+            const section = container.closest('section');
+            const indicatorContainer = section ? section.querySelector('.gallery-indicators') : null;
+            if (!indicatorContainer) {
+                console.warn(`⚠️ No indicator container found for gallery ${index + 1}`);
+                return;
+            }
+            
+            const dots = indicatorContainer.querySelectorAll('.gallery-indicator-dot');
+            if (dots.length === 0) {
+                console.warn(`⚠️ No dots found for gallery ${index + 1}`);
+                return;
+            }
+            
+            // Get actual current position from transform
+            const actualPosition = getCurrentTransform();
+            
+            // Recalculate dimensions and initial offset to ensure accuracy
+            recalculateDimensions();
+            initialOffset = calculateInitialOffset();
+            
+            // Calculate which item is currently most visible (centered)
+            // Account for the initial offset
+            const relativePosition = actualPosition - initialOffset;
+            // Calculate which item index (0 = first item, 1 = second item, etc.)
+            // Negative relativePosition means we've scrolled left (to later items)
+            const itemIndex = Math.round(-relativePosition / itemWidth);
+            
+            // Handle looping - map to original item count
+            let activeIndex = itemIndex % originalItemCount;
+            if (activeIndex < 0) {
+                activeIndex = originalItemCount + activeIndex;
+            }
+            
+            // Ensure activeIndex is within bounds
+            activeIndex = Math.max(0, Math.min(activeIndex, originalItemCount - 1));
+            
+            // Debug logging - log more frequently to help diagnose issues
+            if (Math.abs(itemIndex) % 3 === 0 || Math.abs(actualPosition - currentPosition) > 50) {
+                console.log(`📍 Gallery ${index + 1} - Position: ${actualPosition.toFixed(0)}, Relative: ${relativePosition.toFixed(0)}, ItemIndex: ${itemIndex}, ActiveIndex: ${activeIndex}, Project: ${projectNames[activeIndex] || 'Unknown'}`);
+            }
+            
+            // Update active dot
+            dots.forEach((dot, idx) => {
+                if (idx === activeIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Initialize indicator dots
+        const section = container.closest('section');
+        const indicatorContainer = section ? section.querySelector('.gallery-indicators') : null;
+        
+        if (indicatorContainer) {
+            console.log(`✅ Initializing ${originalItemCount} indicator dots for gallery ${index + 1}`);
+            
+            // Clear any existing dots
+            indicatorContainer.innerHTML = '';
+            
+            // Create dots for each original item
+            for (let i = 0; i < originalItemCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'gallery-indicator-dot';
+                if (i === 0) {
+                    dot.classList.add('active');
+                }
+                dot.setAttribute('data-item-index', i);
+                dot.setAttribute('aria-label', `Go to ${projectNames[i] || `item ${i + 1}`}`);
+                
+                // Create tooltip
+                const tooltip = document.createElement('div');
+                tooltip.className = 'gallery-indicator-tooltip';
+                tooltip.textContent = projectNames[i] || `Project ${i + 1}`;
+                dot.appendChild(tooltip);
+                
+                // Add hover event listeners for tooltip
+                dot.addEventListener('mouseenter', () => {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.visibility = 'visible';
+                    tooltip.style.transform = 'translateX(-50%) translateY(-8px)';
+                });
+                
+                dot.addEventListener('mouseleave', () => {
+                    tooltip.style.opacity = '0';
+                    tooltip.style.visibility = 'hidden';
+                    tooltip.style.transform = 'translateX(-50%) translateY(-4px)';
+                });
+                
+                indicatorContainer.appendChild(dot);
+            }
+            
+            // Add click handlers to dots
+            const dots = indicatorContainer.querySelectorAll('.gallery-indicator-dot');
+            console.log(`✅ Created ${dots.length} dots for gallery ${index + 1}`);
+            
+            dots.forEach((dot, dotIndex) => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log(`🎯 Clicked dot ${dotIndex + 1} for gallery ${index + 1}`);
+                    
+                    // Recalculate dimensions and initial offset before navigation
+                    recalculateDimensions();
+                    
+                    // Ensure itemWidth is valid
+                    if (!itemWidth || itemWidth <= 0) {
+                        console.warn(`⚠️ Invalid itemWidth: ${itemWidth}, recalculating...`);
+                        recalculateDimensions();
+                    }
+                    
+                    initialOffset = calculateInitialOffset();
+                    
+                    // Calculate target position to center the selected item
+                    // The initialOffset centers the first item (index 0) in the viewport
+                    // For each subsequent item, we move left by itemWidth
+                    const targetPosition = initialOffset - (dotIndex * itemWidth);
+                    
+                    console.log(`🎯 Navigating to item ${dotIndex + 1} (${projectNames[dotIndex]})`);
+                    console.log(`   Initial offset: ${initialOffset.toFixed(0)}px`);
+                    console.log(`   Item width: ${itemWidth.toFixed(0)}px`);
+                    console.log(`   Target position: ${targetPosition.toFixed(0)}px`);
+                    
+                    // Pause animation immediately
+                    marquee.style.animationPlayState = 'paused';
+                    clearTimeout(userScrollTimeout);
+                    
+                    // Smooth scroll to target position
+                    marqueeIn.style.transition = 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                    currentPosition = targetPosition;
+                    marqueeIn.style.transform = `translateX(${currentPosition}px)`;
+                    
+                    // Verify centering after animation
+                    setTimeout(() => {
+                        const finalPosition = getCurrentTransform();
+                        console.log(`   Final position: ${finalPosition.toFixed(0)}px`);
+                    }, 900);
+                    
+                    // Update active dot immediately
+                    dots.forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                    
+                    // Update currentPosition variable
+                    setTimeout(() => {
+                        updateActiveIndicator();
+                    }, 100);
+                    
+                    // Resume animation after a longer delay
+                    userScrollTimeout = setTimeout(() => {
+                        if (!isHovering && !isDragging) {
+                            marqueeIn.style.transition = '';
+                            marquee.style.animationPlayState = 'running';
+                            console.log(`▶️ Animation resumed for gallery ${index + 1}`);
+                        }
+                    }, 4000);
+                    
+                    console.log(`✅ Navigated to item ${dotIndex + 1} in gallery ${index + 1} at position ${targetPosition}`);
+                });
+            });
+        } else {
+            console.error(`❌ No indicator container found for gallery ${index + 1}`);
+        }
         
         // CSS animation handles the auto-scroll - no JavaScript animation needed
         
@@ -308,6 +637,9 @@ function initAdvancedMarquee() {
                 currentPosition = lastScrollPosition + deltaX;
                 marqueeIn.style.transform = `translateX(${currentPosition}px)`;
                 
+                // Update active indicator during drag
+                updateActiveIndicator();
+                
                 // Add momentum effect visual feedback on mobile
                 if (isMobileDevice && Math.abs(velocity) > 0.5) {
                     marqueeIn.style.transition = 'none';
@@ -370,6 +702,9 @@ function initAdvancedMarquee() {
                 
                 // Apply the final position without snapping
                 marqueeIn.style.transform = `translateX(${currentPosition}px)`;
+                
+                // Update active indicator dot based on position
+                updateActiveIndicator();
                 
                 console.log(`✅ Marquee ${index + 1} position maintained at:`, currentPosition);
             }
@@ -512,6 +847,26 @@ function initAdvancedMarquee() {
         
         // Set initial cursor
         marqueeIn.style.cursor = 'grab';
+        
+        // Periodically update indicator dots during auto-scroll
+        let indicatorUpdateInterval = setInterval(() => {
+            if (!isDragging && !isHovering && marquee.classList.contains('active')) {
+                // Get current transform value and update position
+                const actualPos = getCurrentTransform();
+                // Only update if position changed significantly to avoid unnecessary updates
+                if (Math.abs(actualPos - currentPosition) > 5) {
+                    currentPosition = actualPos;
+                    updateActiveIndicator();
+                }
+            }
+        }, 400); // Update every 400ms for smoother tracking
+        
+        // Clean up interval when page unloads
+        window.addEventListener('beforeunload', () => {
+            if (indicatorUpdateInterval) {
+                clearInterval(indicatorUpdateInterval);
+            }
+        });
         
         // Final mobile debug
         if (isMobileDevice) {
